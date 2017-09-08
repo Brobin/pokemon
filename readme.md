@@ -1,4 +1,6 @@
-# Lincoln Pokemon GO Map Stats
+# Lincoln Pokemon GO Stats
+
+This django site allows Pokemon Go players to compare stats, show off their favortie pokemon and earn community badges.
 
 ## Getting Started
 
