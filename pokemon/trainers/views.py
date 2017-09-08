@@ -18,6 +18,7 @@ class BadgeList(LoginMixin, ListView):
 class PokemonList(LoginMixin, ListView):
     template_name = 'trainers/pokemon.html'
     queryset = FavoritePokemon.objects.select_related('trainer').order_by('-cp')[:100]
+    paginate_by = 40
 
 
 class TrainerCreate(LoginMixin, CreateView):
@@ -90,6 +91,7 @@ class TrainerDetail(LoginMixin, DetailView):
 class TrainerList(LoginMixin, ListView):
     template_name = 'trainers/index.html'
     queryset = Trainer.objects.prefetch_related('favorite_pokemon').order_by('-xp')
+    paginate_by = 40
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated():

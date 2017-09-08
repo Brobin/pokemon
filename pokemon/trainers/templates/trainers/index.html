@@ -47,4 +47,25 @@
     {% endfor %}
   </tbody>
 </table>
+
+<center>
+  <ul class="pagination">
+    {% if page_obj.has_previous %}
+      <li><a href="?page={{ page_obj.previous_page_number }}">&laquo;</a></li>
+    {% else %}
+      <li class="disabled"><a href="">&laquo;</a></li>
+    {% endif %}
+
+    {% for i in page_obj.paginator.page_range %}
+      <li {% if page_obj.number == i %} class="active" {% endif %}>
+        <a href="?page={{ i }}{% if search %}&q={{ search }}{% endif %}">{{ i }}</a>
+      </li>
+    {% endfor %}
+    {% if page_obj.has_next %}
+      <li><a href="?page={{ page_obj.next_page_number }}">&raquo;</a></li>
+    {% else %}
+      <li class="disabled"><a href="#">&raquo;</a></li>
+    {% endif %}
+  </ul>
+</center>
 {% endblock %}
