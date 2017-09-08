@@ -65,7 +65,27 @@ class Trainer(models.Model):
             return 31
         elif self.xp >= 2000000:
             return 30
-        return "<30"
+        elif self.xp >= 1650000:
+            return 29
+        elif self.xp >= 1350000:
+            return 28
+        elif self.xp >= 1100000:
+            return 27
+        elif self.xp >= 900000:
+            return 26
+        elif self.xp >= 710000:
+            return 25
+        elif self.xp >= 560000:
+            return 24
+        elif self.xp >= 435000:
+            return 23
+        elif self.xp >= 335000:
+            return 22
+        elif self.xp >= 260000:
+            return 21
+        elif self.xp >= 210000:
+            return 20
+        return "<20"
 
     @property
     def team_name(self):
