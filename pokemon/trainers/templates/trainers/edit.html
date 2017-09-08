@@ -13,31 +13,28 @@
       <h3>Trainer Information</h3>
       <div class="row">
         <div class="col-sm-12">
-          {% with field=form.username %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.username as field %}{% include "forms/field.html" %}{% endwith %}
         </div>
-        <div class="col-sm-4">
-          <div class="form-group">
-            <label for="{{ form.team.name }}">Team</label>
-            {{ form.team }}
-          </div>
+        <div class="col-sm-6">
+          {% with form.team as field %}{% include "forms/field.html" %}{% endwith %}
         </div>
-        <div class="col-sm-4">
-          {% with field=form.xp type="number" %}{% include "forms/field.html" %}{% endwith %}
-        </div>
-        <div class="col-sm-4">
-          {% with field=form.pokedex_number type="number" %}{% include "forms/field.html" %}{% endwith %}
+        <div class="col-sm-6">
+          {% with form.xp as field %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with field=form.pokemon_caught type="number" %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.pokemon_caught as field %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with field=form.pokestops_spun type="number" %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.pokestops_spun as field %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with field=form.battles_won type="number" %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.battles_won as field %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with field=form.kilometers_walked type="number"" %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.kilometers_walked as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with form.pokedex_number as field %}{% include "forms/field.html" %}{% endwith %}
         </div>
       </div>
       {% if pokemon_form %}
