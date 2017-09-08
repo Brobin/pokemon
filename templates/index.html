@@ -58,7 +58,7 @@
           {% for trainer in catch_leaders %}
           <tr>
             <td><a href="{% url 'trainer-detail' username=trainer.username %}">{{ trainer.username }}</a></td>
-            <td>{{ trainer.pokemon_caught }}</td>
+            <td>{{ trainer.pokemon_caught | intcomma }}</td>
           </tr>
           {% endfor %}
         </tbody>
@@ -77,7 +77,7 @@
           {% for trainer in spin_leaders %}
           <tr>
             <td><a href="{% url 'trainer-detail' username=trainer.username %}">{{ trainer.username }}</a></td>
-            <td>{{ trainer.pokestops_spun }}</td>
+            <td>{{ trainer.pokestops_spun | intcomma }}</td>
           </tr>
           {% endfor %}
         </tbody>

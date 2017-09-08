@@ -22,22 +22,22 @@
           </div>
         </div>
         <div class="col-sm-4">
-          {% with form.xp as field %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.xp as field "number" as type %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-4">
-          {% with form.pokedex_number as field %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.pokedex_number as field "number" as type %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with form.pokemon_caught as field %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.pokemon_caught as field "number" as type %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with form.pokestops_spun as field %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.pokestops_spun as field "number" as type %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with form.battles_won as field %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.battles_won as field "number" as type %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with form.kilometers_walked as field %}{% include "forms/field.html" %}{% endwith %}
+          {% with form.kilometers_walked as field "number" as type %}{% include "forms/field.html" %}{% endwith %}
         </div>
       </div>
       {% if pokemon_form %}
