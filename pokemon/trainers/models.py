@@ -138,7 +138,7 @@ class FavoritePokemon(models.Model):
 
     @property
     def iv(self):
-        if not self.attack and not self.defense and not self.hp:
+        if not self.attack or not self.defense or not self.hp:
             return None
         return (self.attack + self.defense + self.hp) / 45 * 100
 
