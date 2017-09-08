@@ -19,10 +19,12 @@ class TrainerBadgeInline(admin.TabularInline):
 class BadgeAdmin(admin.ModelAdmin):
     list_display = ['name', 'description']
     list_display_linke = ['name']
+    search_fields = ['name', 'description']
 
 
 @admin.register(Trainer)
 class TrainerAdmin(admin.ModelAdmin):
     list_display = ['username', 'level', 'xp', 'pokemon_caught']
     list_display_link = ['username']
+    search_fields = ['username']
     inlines = [PokemonInline, TrainerBadgeInline]
