@@ -1,0 +1,22 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+.page {
+  min-height: 100%;
+}
+
+.page-content {
+  padding-bottom: 90px;
+}
+
+.footer {
+  border-top: 1px solid #e7e7e7;
+  padding: 20px 0;
+  height: 90px;
+  margin-top: -90px;
+  .copyright {
+    float: right;
+    color: lighten($text-color, 20%);
+  }
+}

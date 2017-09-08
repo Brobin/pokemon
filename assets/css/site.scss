@@ -1,0 +1,19 @@
+// Import our variables
+@import 'variables';
+
+// Import bootstrap, our variables will be used
+@import '../bower_components/bootstrap-sass/assets/stylesheets/bootstrap';
+
+// Import our components
+@import 'components/alert.scss';
+@import 'components/navbar.scss';
+@import 'components/page.scss';
+
+.well {
+  box-shadow: none;
+  border: none;
+  h5 {
+    font-size: 1.4em;
+  }
+}
+

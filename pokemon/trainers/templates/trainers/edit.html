@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% load trainer_tags %}
+
+{% block content %}
+<br/>
+<div class="text-center">
+  <h1>{% if form.instance.pk %}Editing {{ form.instance.username }}{% else %}Create Your Trainer Profile{% endif %}</h1>
+</div>
+  <div class="well">
+    <form method="post" id="form">
+      {% csrf_token %}
+      <h3>Trainer Information</h3>
+      <div class="row">
+        <div class="col-sm-12">
+          {% with form.username as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <label for="{{ form.team.name }}">Team</label>
+            {{ form.team }}
+          </div>
+        </div>
+        <div class="col-sm-4">
+          {% with form.xp as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-4">
+          {% with form.pokedex_number as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with form.pokemon_caught as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with form.pokestops_spun as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with form.battles_won as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with form.kilometers_walked as field %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+      </div>
+      {% if pokemon_form %}
+      <hr/>
+      <h3>Pokemon Showcase</h3>
+      <span>Show off your 8 favorite Pokemon. IVs and Moveset are optional.</span><br/>
+      {{ pokemon_form.management_form }}
+      <table class="table table-striped">
+        <thead>
+          <th>Species</th>
+          <th>CP</th>
+          <th>Shiny?</th>
+          <th>Attack IV</th>
+          <th>Defense IV</th>
+          <th>HP IV</th>
+          <th>Fast Move</th>
+          <th>Charge Move</th>
+          <th>Delete?</th>
+        </thead>
+        <tbody>
+          {% for pokemon in pokemon_form.forms %}
+          <tr>
+            {{ pokemon.id }}
+            <td>{{ pokemon.number|add_class:"form-control" }}</td>
+            <td>{{ pokemon.cp|add_class:"form-control" }}</td>
+            <td>{{ pokemon.shiny }}</td>
+            <td>{{ pokemon.attack|add_class:"form-control" }}</td>
+            <td>{{ pokemon.defense|add_class:"form-control" }}</td>
+            <td>{{ pokemon.hp|add_class:"form-control" }}</td>
+            <td>{{ pokemon.fast_move|add_class:"form-control" }}</td>
+            <td>{{ pokemon.charge_move|add_class:"form-control" }}</td>
+            <td>{{ pokemon.DELETE }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+      <br/>
+      <input type="submit" class="btn btn-primary" value="Save" onclick="$(this).attr('disabled','disabled');$('#form').submit()"/>
+    </form>
+  </div>
+{% endblock %}

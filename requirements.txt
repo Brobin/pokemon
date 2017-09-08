@@ -1,0 +1,12 @@
+coreapi
+coverage
+Django
+django-compressor
+django-debug-toolbar
+django-extensions
+django-libsass
+mock
+pep8
+pylint
+requests
+Werkzeug

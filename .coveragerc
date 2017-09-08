@@ -1,0 +1,19 @@
+[run]
+branch = True
+source = pokemon
+omit =
+    pokemon/settings.py
+    **/admin.py
+    **/apps.py
+    **/migrations/*
+    **/tests/*
+    **/tests.py
+    **/urls.py
+    **/wsgi.py
+
+[report]
+exclude_lines =
+    coverage: omit
+    def __str__
+fail_under = 80
+show_missing = True

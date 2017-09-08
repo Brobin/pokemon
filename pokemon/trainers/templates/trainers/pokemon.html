@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Pokemon Leaderboard{% endblock %}
+
+{% block content %}
+<h1>Pokemon Leaderboard</h1>
+
+<table class="table table-striped table-hover sortable">
+  <thead>
+    <th>Species</th>
+    <th>CP</th>
+    <th>Ivs</th>
+    <th>Moves</th>
+    <th>Trainer</th>
+  </thead>
+  <tbody>
+    {% for pokemon in object_list %}
+    <tr>
+      <td><img src="{% static pokemon.image %}" height="50"/> {{ pokemon.name }}</td>
+      <td>{{ pokemon.cp }}</td>
+      <td>{% if pokemon.iv %}{{ pokemon.iv|floatformat:1 }}%{% else %}???{% endif %}</td>
+      <td>{% if pokemon.fast_move and pokemon.charge_move %}{{ pokemon.fast_move }} / {{ pokemon.charge_move }}{% else %}???{% endif %}</td>
+      <td><a href="{{ pokemon.trainer.url }}">{{ pokemon.trainer.username }}</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

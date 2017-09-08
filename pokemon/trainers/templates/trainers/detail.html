@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% load humanize staticfiles %}
+
+{% block title %}{{ object.username }} | Lincoln Pokemon Go Stats{% endblock %}
+
+{% block content %}
+<br/>
+<a href="{% url 'trainers' %}">< Back to all Trainers</a>
+<h1>{{ object.username }}{% if user == object.user %} <a href="{% url 'trainer-edit' username=object.username %}" class="btn btn-lg btn-primary">Edit</a>{% endif %}</h1>
+<hr/>
+<style>
+  img {
+    max-width: 100%;
+  }
+  .pokemon {
+    background-color: #eee;
+    padding: 10px;
+    margin-bottom: 20px;
+    height: 170px;
+  }
+</style>
+<div class="row">
+  <div class="col-md-4">
+    <div class="well text-center">
+      <h2>Trainer Stats</h2>
+      <hr/>
+      <h3>Level {{ object.level }} {{ object.team_name }}</h3>
+      <h5>{{ object.xp | intcomma }} XP</h5>
+      <h5>{{ object.pokedex_number }} Species Caught</h5>
+      <hr/>
+      <div class="row">
+        <div class="col-xs-3">
+          <img src="{% static 'img/medals/collector.png' %}"/>
+          <span>{{ object.pokemon_caught | intcomma }}</span>
+        </div>
+        <div class="col-xs-3">
+          <img src="{% static 'img/medals/battle_girl.png' %}"/>
+          <span>{{ object.battles_won | intcomma }}</span>
+        </div>
+        <div class="col-xs-3">
+          <img src="{% static 'img/medals/backpacker.png' %}"/>
+          <span>{{ object.pokestops_spun | intcomma }}</span>
+        </div>
+        <div class="col-xs-3">
+          <img src="{% static 'img/medals/jogger.png' %}"/>
+          <span>{{ object.kilometers_walked | intcomma }}</span>
+        </div>
+      </div>
+      {% if object.trainer_badges.count > 0 %}
+      <hr/>
+      <h2>Badges</h2>
+      <div class="row">
+        {% for badge in object.trainer_badges.all %}
+        <div class="col-xs-4">
+          <a href="#" data-toggle="tooltip" title="{{ badge.badge.description }}">
+            <img src="{{ badge.badge.logo.url }}"/>
+          </a>
+          <p>{{ badge.badge.name }}<br/>{{ badge.created_at | date }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  <div class="col-md-8">
+    <div class="well text-center">
+      <h2>Pokemon Showcase</h2>
+      <hr/>
+      <div class="row">
+      {% for pokemon in trainer.favorite_pokemon.all %}
+        <div class="col-sm-3 col-xs-6">
+          <div class="pokemon">
+            <img src="{% static pokemon.image %}"/><br/>
+            <span><b>{{ pokemon.cp }}</b>{% if pokemon.iv %} ({{ pokemon.iv|floatformat:1 }}%){% endif %}</span><br/>
+            <span>{{ pokemon.fast_move }}</span><br/>
+            <span>{{ pokemon.charge_move }}</span>
+          </div>
+        </div>
+      {% empty %}
+        {% if user == object.user %} 
+        <div class="col-sm-12 text-center">
+          <a href="{% url 'trainer-edit' username=object.username %}" class="btn btn-lg btn-primary">Add Pokemon!</a>
+        </div>
+        {% endif %}
+      {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>
+{% endblock %}

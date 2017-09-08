@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}Badges{% endblock %}
+
+{% block content %}
+<h1>Community Badges</h1>
+<p>These are community given badges for outstanding pokemasters in Lincoln. Contact a mod if you believe youa re eligible for a Community Badge</p>
+<div class="row">
+  {% for badge in object_list %}
+  <div class="col-md-3 col-xs-6">
+    <div class="well text-center">
+      <img src="{{ badge.logo.url }}" style="max-width:100%;max-height:200px;"/>
+      <h2>{{ badge.name }}</h2>
+      <p>{{ badge.description }}</p>
+      <span>{{ badge.awarded }} Awarded</span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}

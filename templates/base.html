@@ -1,0 +1,92 @@
+{% spaceless %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+  {% load compress staticfiles %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+  {% compress css %}
+  <link rel="stylesheet" type="text/x-scss" href="{% static 'css/site.scss' %}" />
+  {% endcompress %}
+</head>
+<body>
+  <div class="page">
+    <div class="page-content">
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-menu-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Lincoln Pokemon</a>
+          </div>
+
+          <div class="collapse navbar-collapse" id="navbar-menu-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              {% if not user.is_authenticated %}
+              <li><a href="{% url 'facebook_login' %}" style="padding:5px;"><img src="{% static 'img/login.png' %}" height="40px"/></a></li>
+              {% else %}
+              <li><a href="{% url 'trainer-badges' %}">Badges</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Leaderboards  <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="/">Overall</a></li>
+                  <li><a href="{% url 'trainers' %}">Trainers</a></li>
+                  <li><a href="{% url 'trainer-pokemon' %}">Pokemon</a></li>
+                </ul>
+              </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account  <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  {% if user.trainer.username %}
+                  <li><a href="{% url 'trainer-detail' username=user.trainer.username %}">My Trainer Profile</a></li>
+                  {% else %}
+                  <li><a href="{% url 'trainer-create' %}">My Trainer Profile</a></li>
+                  {% endif %}
+                  {% if user.is_staff %}
+                  <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                  {% endif %}
+                  <li><a href="{% url 'account_logout' %}?next=/">Sign Out</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+      <div class="container">
+        {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-dismissible alert-{{ message.tags }}">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <p>{{ message|safe }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </div>
+  <footer class="footer">
+    <div class="container">
+      <p class="copyright">&copy; 2017 Tobin Brown</p>
+    </div>
+  </footer>
+  {% compress js %}
+  <script src="{% static 'bower_components/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'bower_components/bootstrap-sass/assets/javascripts/bootstrap.min.js' %}"></script>
+  <script src="{% static 'bower_components/knockout/dist/knockout.js' %}"></script>
+  {% endcompress %}
+  <script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+  <script src="//www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+  {% block scripts %}{% endblock %}
+  </div>
+</body>
+</html>
+{% endspaceless %}

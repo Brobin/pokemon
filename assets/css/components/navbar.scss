@@ -1,0 +1,15 @@
+.navbar-default {
+  background-color: $body-bg;
+  
+  .navbar-nav {
+    li {
+      a {
+        color: $text-color;
+        &:hover {
+          color: darken($text-color, 10%);
+        }
+      }
+    }
+  }
+  margin-bottom: 0;
+}

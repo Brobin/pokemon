@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% load staticfiles humanize %}
+
+{% block title %}Lincoln Pokemon Stats{% endblock %}
+
+{% block content %}
+<h1>Lincoln Pokemon GO Stats</h1>
+
+<div class="row">
+  <div class="col-md-3">
+    <div class="well">
+      <div class="text-center">
+        <h5>Experience</h5>
+        <h3>{{ stats.sum_xp | intcomma }}</h3>
+        <p>{{ stats.avg_xp|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in xp_leaders %}
+          <tr>
+            <td><a href="{% url 'trainer-detail' username=trainer.username %}">{{ trainer.username }}</a></td>
+            <td>{{ trainer.xp | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="well">
+      <div class="text-center">
+        <h5>Pokedex Number</h5>
+        <h3>{{ stats.avg_pokedex_number|floatformat:0 }} Average</h3>
+        <p>&nbsp;</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in pokedex_leaders %}
+          <tr>
+            <td><a href="{% url 'trainer-detail' username=trainer.username %}">{{ trainer.username }}</a></td>
+            <td>{{ trainer.pokedex_number }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="well">
+      <div class="text-center">
+        <h5>Pokemon Caught</h5>
+        <h3>{{ stats.sum_pokemon_caught | intcomma }}</h3>
+        <p>{{ stats.avg_pokemon_caught|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in catch_leaders %}
+          <tr>
+            <td><a href="{% url 'trainer-detail' username=trainer.username %}">{{ trainer.username }}</a></td>
+            <td>{{ trainer.pokemon_caught }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="well">
+      <div class="text-center">
+        <h5>Pokestops Spun</h5>
+        <h3>{{ stats.sum_pokestops_spun | intcomma }}</h3>
+        <p>{{ stats.avg_pokestops_spun|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in spin_leaders %}
+          <tr>
+            <td><a href="{% url 'trainer-detail' username=trainer.username %}">{{ trainer.username }}</a></td>
+            <td>{{ trainer.pokestops_spun }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
