@@ -52,7 +52,6 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     'pokemon.authentication',
-    'pokemon.gyms',
     'pokemon.trainers',
 ]
 

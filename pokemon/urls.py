@@ -10,8 +10,6 @@ from .views import StatsView
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^auth/', include('allauth.urls')),
-    #url(r'^auth/', include('pokemon.authentication.urls')),
-    url(r'^gym/', include('pokemon.gyms.urls')),
     url(r'^trainers/', include('pokemon.trainers.urls')),
 
     #url(r'^gyms/$', TemplateView.as_view(template_name='gyms/index.html'), name='gyms'),
