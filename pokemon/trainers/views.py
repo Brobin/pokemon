@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.db.models import Count
+from django.db.models import Count, Case, When, Q, F, IntegerField, Value
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -17,8 +17,35 @@ class BadgeList(LoginMixin, ListView):
 
 class PokemonList(LoginMixin, ListView):
     template_name = 'trainers/pokemon.html'
-    queryset = FavoritePokemon.objects.select_related('trainer').order_by('-cp')[:100]
+    queryset = FavoritePokemon.objects.select_related('trainer').annotate(
+        iv_pct=Case(
+            When(
+                Q(attack__isnull=False) &
+                Q(defense__isnull=False) &
+                Q(hp__isnull=False),
+                then=(F('attack') + F('defense') + F('hp')) / Value(45/100)
+            ),
+            default=None,
+            output_field=IntegerField()
+        )
+    )
     paginate_by = 40
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['orderings'] = [
+            ('-cp', 'Highest CP'),
+            ('cp', 'Lowest CP'),
+            ('-iv_pct', 'Highest IV%'),
+            ('iv_pct', 'Lowest IV%'),
+            ('number', 'Number (Ascending)'),
+            ('-number', 'Number (Descending)'),
+        ]
+        return context
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('ordering', '-cp')
+        return ordering
 
 
 class TrainerCreate(LoginMixin, CreateView):
@@ -92,6 +119,22 @@ class TrainerList(LoginMixin, ListView):
     template_name = 'trainers/index.html'
     queryset = Trainer.objects.prefetch_related('favorite_pokemon').order_by('-xp')
     paginate_by = 40
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['orderings'] = [
+            ('-xp', 'XP'),
+            ('-pokemon_caught', 'Pokemon Caught'),
+            ('-pokedex_number', 'Pokedex Entries'),
+            ('-battles_won', 'Battles Won'),
+            ('-pokestops_spun', 'Pokestops Spun'),
+            ('-kilometers_walked', 'Kilometers Walked'),
+        ]
+        return context
+
+    def get_ordering(self):
+        ordering = self.request.GET.get('ordering', '-xp')
+        return ordering
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated():
