@@ -24,7 +24,8 @@ class BadgeAdmin(admin.ModelAdmin):
 
 @admin.register(Trainer)
 class TrainerAdmin(admin.ModelAdmin):
-    list_display = ['username', 'level', 'xp', 'pokemon_caught']
+    list_display = ['username', 'xp', 'pokemon_caught', 'updated_at']
     list_display_link = ['username']
+    list_filter = ['updated_at']
     search_fields = ['username']
     inlines = [PokemonInline, TrainerBadgeInline]

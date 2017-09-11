@@ -39,6 +39,8 @@ class Trainer(models.Model):
     username = models.CharField(max_length=64, unique=True)
     team = models.IntegerField(choices=TEAMS)
 
+    updated_at = models.DateTimeField(blank=True, null=True)
+
     xp = models.BigIntegerField()
 
     pokemon_caught = models.IntegerField()
@@ -107,6 +109,10 @@ class Trainer(models.Model):
 
     def __str__(self):
         return self.username
+
+    def save(self, *args, **kwargs):
+        self.updated_at = timezone.now()
+        return super().save(*args, **kwargs)
 
 
 class TrainerBadge(models.Model):
