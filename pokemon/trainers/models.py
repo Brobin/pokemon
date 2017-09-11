@@ -1,9 +1,14 @@
+import logging
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
 from .constants import POKEMON
+
+
+log = logging.getLogger(__name__)
 
 
 IV = [(x, str(x)) for x in range(0, 16)]
@@ -92,6 +97,7 @@ class Trainer(models.Model):
         return TEAMS[self.team - 1][1]
 
     def get_absolute_url(self):
+        log.debug(self.username)
         return reverse('trainer-detail', kwargs={'username': self.username})
 
     def __str__(self):

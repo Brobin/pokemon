@@ -45,7 +45,7 @@ class PokemonList(LoginMixin, ListView):
 
     def get_ordering(self):
         ordering = self.request.GET.get('ordering', '-cp')
-        return ordering
+        return [ordering, '-cp']
 
 
 class TrainerCreate(LoginMixin, CreateView):
@@ -134,7 +134,7 @@ class TrainerList(LoginMixin, ListView):
 
     def get_ordering(self):
         ordering = self.request.GET.get('ordering', '-xp')
-        return ordering
+        return [ordering, '-xp']
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.is_authenticated():

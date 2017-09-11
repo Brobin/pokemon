@@ -44,8 +44,8 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Account  <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  {% if user.trainer.username %}
-                  <li><a href="{% url 'trainer-detail' username=user.trainer.username %}">My Trainer Profile</a></li>
+                  {% if user.trainer.username != '' %}
+                  <li><a href="{{ user.trainer.url }}">My Trainer Profile</a></li>
                   {% else %}
                   <li><a href="{% url 'trainer-create' %}">My Trainer Profile</a></li>
                   {% endif %}
@@ -53,9 +53,9 @@
                   <li><a href="{% url 'admin:index' %}">Admin</a></li>
                   {% endif %}
                   <li><a href="{% url 'account_logout' %}?next=/">Sign Out</a></li>
-                  {% endif %}
                 </ul>
               </li>
+              {% endif %}
             </ul>
           </div>
         </div>
