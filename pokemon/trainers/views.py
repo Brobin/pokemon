@@ -4,9 +4,8 @@ from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
-from pokemon.authentication.mixins import LoginMixin
-
 from .forms import TrainerForm, PokemonForm
+from .mixins import LoginMixin
 from .models import Badge, FavoritePokemon, Trainer
 
 
