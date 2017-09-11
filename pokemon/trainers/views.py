@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.db.models import Count, Case, When, Q, F, IntegerField, Value
+from django.db.models import Count, Case, When, Q, F, FloatField, Value
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -26,7 +26,7 @@ class PokemonList(LoginMixin, ListView):
                 then=(F('attack') + F('defense') + F('hp')) / Value(45/100)
             ),
             default=None,
-            output_field=IntegerField()
+            output_field=FloatField()
         )
     )
     paginate_by = 40
