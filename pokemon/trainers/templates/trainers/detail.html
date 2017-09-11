@@ -25,6 +25,7 @@
     <div class="well text-center">
       <h2>Trainer Stats</h2>
       <hr/>
+      <i>Last Updated: {{ object.updated_at | date }}</i>
       <h3>Level {{ object.level }} {{ object.team_name }}</h3>
       <h5>{{ object.xp | intcomma }} XP</h5>
       <h5>{{ object.pokedex_number }} Species Caught</h5>
