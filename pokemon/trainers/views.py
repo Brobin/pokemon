@@ -1,5 +1,5 @@
 from django.contrib import messages
-from django.db.models import Count, Case, When, Q, F, FloatField, Value
+from django.db.models import Count, Case, When, Q, F, FloatField, Value, Max
 from django.shortcuts import get_object_or_404, redirect
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
@@ -110,6 +110,19 @@ class TrainerEdit(LoginMixin, UpdateView):
 class TrainerDetail(LoginMixin, DetailView):
     model = Trainer
     template_name = 'trainers/detail.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        trainers = Trainer.objects.count()
+        t = context['object']
+        # Get all the percentiles for the radar chart
+        context['xp'] = Trainer.objects.filter(xp__lte=t.xp).count() / trainers
+        context['pc'] = Trainer.objects.filter(pokemon_caught__lte=t.pokemon_caught).count() / trainers
+        context['ps'] = Trainer.objects.filter(pokestops_spun__lte=t.pokestops_spun).count() / trainers
+        context['pn'] = Trainer.objects.filter(pokedex_number__lte=t.pokedex_number).count() / trainers
+        context['kw'] = Trainer.objects.filter(kilometers_walked__lte=t.kilometers_walked).count() / trainers
+        context['bw'] = Trainer.objects.filter(battles_won__lte=t.battles_won).count() / trainers
+        return context
 
     def get_object(self):
         return get_object_or_404(Trainer, username__iexact=self.kwargs['username'])

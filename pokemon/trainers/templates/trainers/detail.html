@@ -47,8 +47,11 @@
           <span>{{ object.kilometers_walked | intcomma }}</span>
         </div>
       </div>
-      {% if object.trainer_badges.count > 0 %}
       <hr/>
+      <h3>Trainer Percentiles</h3>
+      <canvas id="trainer-radar" height="300"></canvas>
+      <hr/>
+      {% if object.trainer_badges.count > 0 %}
       <h2>Badges</h2>
       <div class="row">
         {% for badge in object.trainer_badges.all %}
@@ -95,6 +98,46 @@
 <script>
 $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip(); 
+
+    var radar = new Chart($("#trainer-radar"), {
+      type: 'radar',
+      data: {
+        labels: ['Experience', 'Pokemon Caught', 'Pokestops Spun', 'Pokedex Entries', 'Kilometers Walked', 'Battles Won'],
+        datasets: [{
+          label: "{{ object.username }}",
+          scaleOverride: true,
+          scaleSteps: 10,
+          scaleStepWidth: 10,
+          scaleStartValue: 0,
+          data: [
+            ({{ xp }} * 100).toFixed(0),
+            ({{ pc }} * 100).toFixed(0),
+            ({{ ps }} * 100).toFixed(0),
+            ({{ pn }} * 100).toFixed(0),
+            ({{ kw }} * 100).toFixed(0),
+            ({{ bw }} * 100).toFixed(0),
+          ],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        responsive: true,
+        tooltips: {
+          enabled: true,
+          mode: 'single',
+          callbacks: {
+            label: function(tooltipItems, data) { 
+              return tooltipItems.yLabel + '%';
+            }
+          }
+        },
+     } 
+    });
 });
 </script>
 {% endblock %}
