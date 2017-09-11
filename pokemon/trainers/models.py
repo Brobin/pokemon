@@ -13,10 +13,15 @@ log = logging.getLogger(__name__)
 
 IV = [(x, str(x)) for x in range(0, 16)]
 NUMBER = ((x + 1, name) for x, name in enumerate(POKEMON))
+
+MYSTIC = 1
+VALOR = 2
+INSTINCT = 3
+
 TEAMS = (
-    (1, 'Mystic'),
-    (2, 'Valor'),
-    (3, 'Instinct'),
+    (MYSTIC, 'Mystic'),
+    (VALOR, 'Valor'),
+    (INSTINCT, 'Instinct'),
 )
 
 
