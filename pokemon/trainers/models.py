@@ -119,12 +119,6 @@ class TrainerBadge(models.Model):
     created_at = models.DateTimeField(editable=True)
     trainer = models.ForeignKey(Trainer, related_name='trainer_badges')
     badge = models.ForeignKey(Badge, related_name='trainer_badges')
-    note = models.CharField(max_length=32)
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.created_at = timezone.now()
-        super().save(self, *args, **kwargs)
 
     class Meta:
         verbose_name = 'Badge'

@@ -13,6 +13,7 @@ class PokemonInline(admin.TabularInline):
 class TrainerBadgeInline(admin.TabularInline):
     model = TrainerBadge
     extra = 0
+    raw_id_fields = ['trainer']
 
 
 @admin.register(Badge)
@@ -20,6 +21,7 @@ class BadgeAdmin(admin.ModelAdmin):
     list_display = ['name', 'description']
     list_display_linke = ['name']
     search_fields = ['name', 'description']
+    inlines = [TrainerBadgeInline]
 
 
 @admin.register(Trainer)
