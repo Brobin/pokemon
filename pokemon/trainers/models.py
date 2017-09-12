@@ -125,6 +125,28 @@ class TrainerBadge(models.Model):
         verbose_name_plural = 'Badges'
 
 
+class BadgeApplication(models.Model):
+    created_at = models.DateTimeField(auto_now_add=True)
+    trainer = models.ForeignKey(Trainer, related_name='badge_applications')
+    badge = models.ForeignKey(Badge, related_name='badge_applications')
+    screenshot = models.ImageField(upload_to='badge_applications')
+    note = models.TextField(blank=True, null=True)
+    approved = models.BooleanField(default=False)
+
+    def approve(self):
+        TrainerBadge.objects.create(
+            trainer=self.trainer,
+            badge=self.badge,
+            created_at=timezone.now()
+        )
+        self.approved = True
+        self.save()
+
+    class Meta:
+        verbose_name = 'Badge Application'
+        verbose_name_plural = 'Badge Applications'
+
+
 class FavoritePokemon(models.Model):
     trainer = models.ForeignKey(Trainer, related_name='favorite_pokemon')
 

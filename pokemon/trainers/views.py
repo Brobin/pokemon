@@ -1,12 +1,33 @@
 from django.contrib import messages
 from django.db.models import Count, Case, When, Q, F, FloatField, Value, Max
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, UpdateView
 
 from .forms import TrainerForm, PokemonForm
 from .mixins import LoginMixin
-from .models import Badge, FavoritePokemon, Trainer
+from .models import Badge, BadgeApplication, FavoritePokemon, Trainer
+
+
+class BadgeApplicationView(LoginMixin, CreateView):
+    model = BadgeApplication
+    fields = ['badge', 'screenshot', 'note']
+    template_name = 'trainers/badges/application.html'
+
+    def form_valid(self, form):
+        application = form.save(commit=False)
+        application.trainer = self.request.user.trainer
+        application.save()
+        return redirect(self.get_success_url())
+
+    def get_success_url(self):
+        messages.success(
+            self.request,
+            'Badge Application submitted! A Mod will review it ASAP.'
+        )
+        username = self.request.user.trainer.username
+        return reverse('trainer-detail', kwargs={'username': username})
 
 
 class BadgeList(LoginMixin, ListView):

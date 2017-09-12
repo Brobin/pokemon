@@ -1,6 +1,7 @@
 from django.conf.urls import url
 
 from .views import (
+    BadgeApplicationView,
     BadgeList,
     PokemonList,
     TrainerCreate,
@@ -11,6 +12,7 @@ from .views import (
 
 
 urlpatterns = [
+    url(r'^badges/application/$', BadgeApplicationView.as_view(), name='badge-application'),
     url(r'^badges/$', BadgeList.as_view(), name='trainer-badges'),
     url(r'^create/$', TrainerCreate.as_view(), name='trainer-create'),
     url(r'^pokemon/$', PokemonList.as_view(), name='trainer-pokemon'),

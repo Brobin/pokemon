@@ -1,6 +1,13 @@
-from django.contrib import admin
+from django.contrib import admin, messages
+from django.shortcuts import redirect
 
-from .models import Badge, FavoritePokemon, Trainer, TrainerBadge
+from .models import (
+    Badge,
+    BadgeApplication,
+    FavoritePokemon,
+    Trainer,
+    TrainerBadge
+)
 
 
 class PokemonInline(admin.TabularInline):
@@ -22,6 +29,20 @@ class BadgeAdmin(admin.ModelAdmin):
     list_display_linke = ['name']
     search_fields = ['name', 'description']
     inlines = [TrainerBadgeInline]
+
+
+@admin.register(BadgeApplication)
+class BadgeApplicationAdmin(admin.ModelAdmin):
+    list_display = ['trainer', 'badge', 'approved']
+    list_display_links = ['trainer', 'badge', 'approved']
+    actions = ['approve']
+    list_filter = ['approved']
+
+    def approve(self, request, queryset):
+        for badge in queryset.filter(approved=False):
+            badge.approve()
+        messages.success(request, '{0} Badges approved'.format(queryset.count()))
+        return redirect(request.path)
 
 
 @admin.register(Trainer)

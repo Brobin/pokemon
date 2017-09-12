@@ -76,9 +76,9 @@
       {% endfor %}
       </div>
     </div>
-    {% if object.trainer_badges.count > 0 %}
     <div class="well text-center">
-      <h2>Badges</h2>
+      <h2>Badges {% if user == object.user %} <a href="{% url 'badge-application' %}" class="btn btn-lg btn-primary">Apply for a Badge</a>{% endif %}</h2>
+      <hr/>
       <div class="row">
         {% for badge in object.trainer_badges.all %}
         <div class="col-sm-3 col-xs-4">
@@ -92,7 +92,6 @@
         {% endfor %}
       </div>
     </div>
-    {% endif %}
   </div>
 </div>
 

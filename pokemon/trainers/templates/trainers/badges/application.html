@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load trainer_tags %}
+
+{% block title %}Badge Application{% endblock %}
+
+{% block content %}
+<h1 class="text-center">Badge Application</h1>
+<div class="row">
+  <div class="col-md-8 col-md-offset-2">
+    <div class="well">
+      <form method="post"  enctype="multipart/form-data">
+        {{ form.errors }}
+        {% csrf_token %}
+        <label for="badge">Which Badge are you applying for?</label>
+        {{ form.badge|add_class:"form-control" }}
+        <br/>
+        <label for="screenshot">Provide a screenshot proving you've earned the badge.</label>
+        {{ form.screenshot }}
+        <br/>
+        <label for="note">Any notes related to the badge</label>
+        {{ form.note|add_class:"form-control"}}
+        <br/>
+        <input type="submit" class="btn btn-primary" value="Submit"/>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
