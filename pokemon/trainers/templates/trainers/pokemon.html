@@ -27,7 +27,7 @@
     <th>Species</th>
     <th>CP</th>
     <th>Ivs</th>
-    <th>Moves</th>
+    <th class="hidden-xs">Moves</th>
     <th>Trainer</th>
   </thead>
   <tbody>
@@ -36,7 +36,7 @@
       <td><img src="{% static pokemon.image %}" height="50"/> {{ pokemon.name }}</td>
       <td>{{ pokemon.cp }}</td>
       <td>{% if pokemon.iv_pct %}{{ pokemon.iv_pct|floatformat:1 }}%{% else %}???{% endif %}</td>
-      <td>{% if pokemon.fast_move and pokemon.charge_move %}{{ pokemon.fast_move }} / {{ pokemon.charge_move }}{% else %}???{% endif %}</td>
+      <td class="hidden-xs">{% if pokemon.fast_move and pokemon.charge_move %}{{ pokemon.fast_move }} / {{ pokemon.charge_move }}{% else %}???{% endif %}</td>
       <td><a href="{{ pokemon.trainer.url }}">{{ pokemon.trainer.username }}</a></td>
     </tr>
     {% endfor %}

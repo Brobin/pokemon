@@ -39,25 +39,27 @@
 <table class="table table-striped table-hover">
   <thead>
     <th>Trainer</th>
+    <th>Team</th>
     <th>XP</th>
     <th>Level</th>
-    <th>Pokedex</th>
-    <th><img src="{% static 'img/medals/collector.png' %}"/></th>
-    <th><img src="{% static 'img/medals/battle_girl.png' %}"/></th>
-    <th><img src="{% static 'img/medals/backpacker.png' %}"/></th>
-    <th><img src="{% static 'img/medals/jogger.png' %}"/></th>
+    <th class="hidden-xs">Pokedex</th>
+    <th class="hidden-xs"><img src="{% static 'img/medals/collector.png' %}"/></th>
+    <th class="hidden-xs"><img src="{% static 'img/medals/battle_girl.png' %}"/></th>
+    <th class="hidden-xs"><img src="{% static 'img/medals/backpacker.png' %}"/></th>
+    <th class="hidden-xs"><img src="{% static 'img/medals/jogger.png' %}"/></th>
   </thead>
   <tbody>
     {% for trainer in object_list %}
     <tr>
       <td><a href="{{ trainer.url }}">{{ trainer.username }}</a></td>
+      <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/></td>
       <td>{{ trainer.xp |intcomma }}</td>
       <td>{{ trainer.level }}</td>
-      <td>{{ trainer.pokedex_number }}</td>
-      <td>{{ trainer.pokemon_caught | intcomma }}</td>
-      <td>{{ trainer.battles_won | intcomma }}</td>
-      <td>{{ trainer.pokestops_spun | intcomma }}</td>
-      <td>{{ trainer.kilometers_walked | intcomma }}</td>
+      <td class="hidden-xs">{{ trainer.pokedex_number }}</td>
+      <td class="hidden-xs">{{ trainer.pokemon_caught | intcomma }}</td>
+      <td class="hidden-xs">{{ trainer.battles_won | intcomma }}</td>
+      <td class="hidden-xs">{{ trainer.pokestops_spun | intcomma }}</td>
+      <td class="hidden-xs">{{ trainer.kilometers_walked | intcomma }}</td>
     </tr>
     {% endfor %}
   </tbody>
