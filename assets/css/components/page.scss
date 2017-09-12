@@ -20,3 +20,7 @@ html, body {
     color: lighten($text-color, 20%);
   }
 }
+
+input[type="number"], input[type="text"], select {
+  min-width: 100px;
+}
