@@ -39,7 +39,6 @@
 <table class="table table-striped table-hover">
   <thead>
     <th>Trainer</th>
-    <th>Team</th>
     <th>XP</th>
     <th>Level</th>
     <th class="hidden-xs">Pokedex</th>
@@ -51,8 +50,7 @@
   <tbody>
     {% for trainer in object_list %}
     <tr>
-      <td><a href="{{ trainer.url }}">{{ trainer.username }}</a></td>
-      <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/></td>
+      <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/>&nbsp;<a href="{{ trainer.url }}">{{ trainer.username }}</a></td>
       <td>{{ trainer.xp |intcomma }}</td>
       <td>{{ trainer.level }}</td>
       <td class="hidden-xs">{{ trainer.pokedex_number }}</td>
