@@ -248,6 +248,9 @@ from django.urls import reverse_lazy
 LOGIN_REDIRECT_URL = reverse_lazy('trainers')
 
 
+PAGINATE_BY = 40
+
+
 # import local settings to override
 try:
     from pokemon.local import *

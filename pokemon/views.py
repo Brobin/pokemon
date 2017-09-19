@@ -1,7 +1,4 @@
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm
 from django.db.models import Avg, Sum, Count
-from django.shortcuts import render, redirect
 from django.views.generic import TemplateView
 
 from .trainers.models import Trainer
@@ -52,11 +49,17 @@ class StatsView(TemplateView):
         charts = {}
         for datum in ['players', 'team_xp', 'team_pokemon', 'team_pokestops',
                       'team_kilometers', 'team_battles']:
+            m, v, i = int(mystic[datum]), int(valor[datum]), int(instinct[datum])
+            total = m + v + i
             charts[datum] = {
-                'labels': ['Mystic', 'Valor', 'Instinct'],
+                'labels': [
+                    'Mystic ({0:0.1f}%)'.format(m / total * 100.0),
+                    'Valor ({0:0.1f}%)'.format(v / total * 100.0),
+                    'Instinct ({0:0.1f}%)'.format(i / total * 100.0)
+                ],
                 'datasets': [{
                     'label': datum,
-                    'data': [int(mystic[datum]), int(valor[datum]), int(instinct[datum])],
+                    'data': [m, v, i],
                     'backgroundColor': ['#337ab7', '#d9534f',  '#f0ad4e'],
                 }]
             }

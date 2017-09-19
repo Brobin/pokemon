@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.db.models import Count, Case, When, Q, F, FloatField, Value, Max
 from django.shortcuts import get_object_or_404, redirect
@@ -151,7 +152,7 @@ class TrainerDetail(LoginMixin, DetailView):
 class TrainerList(LoginMixin, ListView):
     template_name = 'trainers/index.html'
     queryset = Trainer.objects.prefetch_related('favorite_pokemon').order_by('-xp')
-    paginate_by = 40
+    paginate_by = settings.PAGINATE_BY
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)

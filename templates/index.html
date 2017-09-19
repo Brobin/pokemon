@@ -21,6 +21,7 @@
         <tbody>
           {% for trainer in xp_leaders %}
           <tr>
+            <td>{{ forloop.counter }}</td>
             <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.xp | intcomma }}</td>
           </tr>
@@ -42,6 +43,7 @@
         <tbody>
           {% for trainer in pokedex_leaders %}
           <tr>
+            <td>{{ forloop.counter }}</td>
             <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.pokedex_number }}</td>
           </tr>
@@ -63,6 +65,7 @@
         <tbody>
           {% for trainer in catch_leaders %}
           <tr>
+            <td>{{ forloop.counter }}</td>
             <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.pokemon_caught | intcomma }}</td>
           </tr>
@@ -84,6 +87,7 @@
         <tbody>
           {% for trainer in spin_leaders %}
           <tr>
+            <td>{{ forloop.counter }}</td>
             <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.pokestops_spun | intcomma }}</td>
           </tr>
@@ -105,6 +109,7 @@
         <tbody>
           {% for trainer in walking_leaders %}
           <tr>
+            <td>{{ forloop.counter }}</td>
             <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.kilometers_walked | intcomma }}</td>
           </tr>
@@ -126,6 +131,7 @@
         <tbody>
           {% for trainer in battle_leaders %}
           <tr>
+            <td>{{ forloop.counter }}</td>
             <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.battles_won | intcomma }}</td>
           </tr>

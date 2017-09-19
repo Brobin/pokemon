@@ -1,4 +1,5 @@
 from django import template
+from django.conf import settings
 
 
 register = template.Library()
@@ -14,3 +15,9 @@ def url_replace(request, field, value):
     params = request.GET.copy()
     params[field] = value
     return params.urlencode()
+
+
+@register.filter(name='trainer_rank')
+def trainer_rank(request, counter):
+    base = (int(request.GET.get('page', '1')) - 1) * settings.PAGINATE_BY
+    return base + counter
