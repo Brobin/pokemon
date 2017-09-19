@@ -40,7 +40,7 @@
   <thead>
     <th></th>
     <th>Trainer</th>
-    <th>XP</th>
+    <th {% if 'ordering' in request.GET and request.GET.ordering != '-xp' %}class="hidden-xs"{% endif %}>XP</th>
     <th>Level</th>
     <th {% if 'pokedex_number' not in request.get_full_path %}class="hidden-xs"{% endif %}>Pokedex</th>
     <th {% if 'pokemon_caught' not in request.get_full_path %}class="hidden-xs"{% endif %}><img src="{% static 'img/medals/collector.png' %}"/></th>
@@ -53,7 +53,7 @@
     <tr>
       <td>{{ request|trainer_rank:forloop.counter }}</td>
       <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/>&nbsp;<a href="{{ trainer.url }}">{{ trainer.username }}</a></td>
-      <td>{{ trainer.xp |intcomma }}</td>
+      <td {% if 'ordering' in request.GET and request.GET.ordering != '-xp' %}class="hidden-xs"{% endif %}>{{ trainer.xp |intcomma }}</td>
       <td>{{ trainer.level }}</td>
       <td {% if 'pokedex_number' not in request.get_full_path %}class="hidden-xs"{% endif %}>{{ trainer.pokedex_number }}</td>
       <td {% if 'pokemon_caught' not in request.get_full_path %}class="hidden-xs"{% endif %}>{{ trainer.pokemon_caught | intcomma }}</td>
