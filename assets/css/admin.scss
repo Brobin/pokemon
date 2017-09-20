@@ -1,0 +1,71 @@
+$link: #9C0000;
+$link_hover: darken($link, 10%);
+
+ #header {
+  background: #fff;
+  color: #444;
+  border-bottom: 1px solid #E5E5E5;
+  a:link, a:visited {
+    color: $link;
+  }
+  a:hover {
+    color: $link_hover;
+  }
+  #branding {
+    h1 {
+      font-size: 15px;
+      color: #aaa;
+      img {
+        height: 30px;
+      }
+      .tagline {
+        margin-left: 10px;
+        padding-left: 10px;
+        border-left: 1px solid #aaa;
+      }
+    }
+  }
+}
+
+div.breadcrumbs {
+  background: #fff;
+  border-bottom: 1px solid #E5E5E5;
+  color: lighten($link, 40%);
+  a:link, a:visited {
+    color: $link;
+  }
+  a:hover {
+    color: $link_hover;
+  }
+}
+
+.hijack-button {
+  padding: 5px;
+  border-radius: 2px;
+  background-color: #ddd;
+  &:hover {
+    background-color: #eee;
+  }
+}
+
+a:link, a:visited {
+  color: $link;
+  text-decoration: none;
+}
+
+#user-tools a:hover {
+  border-bottom-color: $link_hover;
+  color: $link_hover;
+}
+
+.module h2, .module caption, .inline-group h2 {
+  background: $link
+}
+
+#changelist-filter li.selected a {
+  color: $link !important;
+}
+
+#changelist-filter a:focus, #changelist-filter a:hover, #changelist-filter li.selected a:focus, #changelist-filter li.selected a:hover {
+    color: $link_hover !important;
+}

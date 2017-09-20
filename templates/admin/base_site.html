@@ -1,9 +1,16 @@
 {% extends "admin/base.html" %}
 
+{% block extrastyle %}
+{% load compress i18n staticfiles %}
+{% compress css %}
+<link rel="stylesheet" type="text/x-scss" href="{% static 'css/admin.scss' %}" />
+{% endcompress %}
+{% endblock %}
+
 {% block title %}
 Lincoln Pokemon Admin
 {% endblock %}
 
 {% block branding %}
-<h1 id="site-name">Lincoln Pokemon Admin</h1>
+<h1 id="site-name"><img src="{% static 'img/logo.png' %}"/></h1>
 {% endblock %}
