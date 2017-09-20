@@ -115,7 +115,6 @@ class Trainer(models.Model):
         return TEAMS[self.team - 1][1]
 
     def get_absolute_url(self):
-        log.debug(self.username)
         return reverse('trainer-detail', kwargs={'username': self.username})
 
     def __str__(self):
