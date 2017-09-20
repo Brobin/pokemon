@@ -33,7 +33,7 @@ class BadgeAdmin(admin.ModelAdmin):
 
 @admin.register(BadgeApplication)
 class BadgeApplicationAdmin(admin.ModelAdmin):
-    list_display = ['trainer', 'badge', 'approved']
+    list_display = ['trainer', 'badge', 'approved', 'screenshot', 'screenshot2']
     list_display_links = ['trainer', 'badge', 'approved']
     actions = ['approve']
     list_filter = ['approved']

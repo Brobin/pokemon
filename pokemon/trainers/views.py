@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.db.models import Count, Case, When, Q, F, FloatField, Value, Max
+from django.db.models import Count, Case, When, Q, F, FloatField, Value
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views.generic import DetailView, ListView
@@ -13,7 +13,7 @@ from .models import Badge, BadgeApplication, FavoritePokemon, Trainer
 
 class BadgeApplicationView(LoginMixin, CreateView):
     model = BadgeApplication
-    fields = ['badge', 'screenshot', 'note']
+    fields = ['badge', 'screenshot', 'screenshot2', 'note']
     template_name = 'trainers/badges/application.html'
 
     def form_valid(self, form):

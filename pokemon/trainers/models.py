@@ -130,6 +130,7 @@ class BadgeApplication(models.Model):
     trainer = models.ForeignKey(Trainer, related_name='badge_applications')
     badge = models.ForeignKey(Badge, related_name='badge_applications')
     screenshot = models.ImageField(upload_to='badge_applications')
+    screenshot2 = models.ImageField(upload_to='badge_applications', blank=True, null=True)
     note = models.TextField(blank=True, null=True)
     approved = models.BooleanField(default=False)
 

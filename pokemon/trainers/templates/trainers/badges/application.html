@@ -15,8 +15,10 @@
         <label for="badge">Which Badge are you applying for?</label>
         {{ form.badge|add_class:"form-control" }}
         <br/>
-        <label for="screenshot">Provide a screenshot proving you've earned the badge.</label>
+        <label for="screenshot">Provide a screenshot (or 2) proving you've earned the badge.</label>
         {{ form.screenshot }}
+        <br/>
+        {{ form.screenshot2 }}
         <br/>
         <label for="note">Any notes related to the badge</label>
         {{ form.note|add_class:"form-control"}}
