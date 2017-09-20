@@ -59,7 +59,15 @@ a:link, a:visited {
 }
 
 .module h2, .module caption, .inline-group h2 {
-  background: $link
+  background: #ddd;
+}
+
+.module:not(.filtered) {
+  background-color: #f8f8f8;
+}
+
+a.section:link, a.section:visited {
+  color: rgb(61, 63, 65);
 }
 
 #changelist-filter li.selected a {
