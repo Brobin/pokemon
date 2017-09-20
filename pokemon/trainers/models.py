@@ -34,6 +34,17 @@ class Badge(models.Model):
         return self.name
 
 
+class TrainerUpdate(models.Model):
+    trainer = models.ForeignKey('Trainer', related_name='updates')
+    created_at = models.DateTimeField()
+    xp = models.BigIntegerField()
+    pokemon_caught = models.IntegerField()
+    pokestops_spun = models.IntegerField()
+    battles_won = models.IntegerField()
+    kilometers_walked = models.FloatField()
+    pokedex_number = models.IntegerField()
+
+
 class Trainer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='trainer')
     username = models.CharField(max_length=64, unique=True)
@@ -112,6 +123,16 @@ class Trainer(models.Model):
 
     def save(self, *args, **kwargs):
         self.updated_at = timezone.now()
+        TrainerUpdate.objects.create(
+            trainer=self,
+            created_at=timezone.now(),
+            xp=self.xp,
+            pokemon_caught=self.pokemon_caught,
+            pokestops_spun=self.pokestops_spun,
+            battles_won=self.battles_won,
+            kilometers_walked=self.kilometers_walked,
+            pokedex_number=self.pokedex_number,
+        )
         return super().save(*args, **kwargs)
 
 

@@ -6,7 +6,8 @@ from .models import (
     BadgeApplication,
     FavoritePokemon,
     Trainer,
-    TrainerBadge
+    TrainerBadge,
+    TrainerUpdate,
 )
 
 
@@ -15,12 +16,21 @@ class PokemonInline(admin.TabularInline):
     extra = 0
     min_num = 0
     max_num = 8
+    classes = ['collapse']
 
 
 class TrainerBadgeInline(admin.TabularInline):
     model = TrainerBadge
     extra = 0
     raw_id_fields = ['trainer']
+    classes = ['collapse']
+
+
+class TrainerUpdateInline(admin.TabularInline):
+    model = TrainerUpdate
+    extra = 0
+    raw_id_fields = ['trainer']
+    classes = ['collapse']
 
 
 @admin.register(Badge)
@@ -51,4 +61,4 @@ class TrainerAdmin(admin.ModelAdmin):
     list_display_link = ['username']
     list_filter = ['updated_at']
     search_fields = ['username']
-    inlines = [PokemonInline, TrainerBadgeInline]
+    inlines = [PokemonInline, TrainerBadgeInline, TrainerUpdateInline]
