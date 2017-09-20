@@ -14,7 +14,7 @@ from .models import Badge, BadgeApplication, FavoritePokemon, Trainer
 class BadgeApplicationView(LoginMixin, CreateView):
     model = BadgeApplication
     fields = ['badge', 'screenshot', 'screenshot2', 'note']
-    template_name = 'trainers/badges/application.html'
+    template_name = 'badges/application.html'
 
     def form_valid(self, form):
         application = form.save(commit=False)
@@ -32,12 +32,12 @@ class BadgeApplicationView(LoginMixin, CreateView):
 
 
 class BadgeList(LoginMixin, ListView):
-    template_name = 'trainers/badges.html'
+    template_name = 'badges/list.html'
     queryset = Badge.objects.annotate(awarded=Count('trainer_badges'))
 
 
 class PokemonList(LoginMixin, ListView):
-    template_name = 'trainers/pokemon.html'
+    template_name = 'pokemon/list.html'
     queryset = FavoritePokemon.objects.select_related('trainer').annotate(
         iv_pct=Case(
             When(
@@ -150,7 +150,7 @@ class TrainerDetail(LoginMixin, DetailView):
 
 
 class TrainerList(LoginMixin, ListView):
-    template_name = 'trainers/index.html'
+    template_name = 'trainers/list.html'
     queryset = Trainer.objects.prefetch_related('favorite_pokemon').order_by('-xp')
     paginate_by = settings.PAGINATE_BY
 
