@@ -122,16 +122,17 @@ class Trainer(models.Model):
 
     def save(self, *args, **kwargs):
         self.updated_at = timezone.now()
-        TrainerUpdate.objects.create(
-            trainer=self,
-            created_at=timezone.now(),
-            xp=self.xp,
-            pokemon_caught=self.pokemon_caught,
-            pokestops_spun=self.pokestops_spun,
-            battles_won=self.battles_won,
-            kilometers_walked=self.kilometers_walked,
-            pokedex_number=self.pokedex_number,
-        )
+        if self.pk:
+            TrainerUpdate.objects.create(
+                trainer=self,
+                created_at=timezone.now(),
+                xp=self.xp,
+                pokemon_caught=self.pokemon_caught,
+                pokestops_spun=self.pokestops_spun,
+                battles_won=self.battles_won,
+                kilometers_walked=self.kilometers_walked,
+                pokedex_number=self.pokedex_number,
+            )
         return super().save(*args, **kwargs)
 
 
