@@ -143,6 +143,7 @@ class TrainerDetail(LoginMixin, DetailView):
         context['pn'] = Trainer.objects.filter(pokedex_number__lte=t.pokedex_number).count() / trainers
         context['kw'] = Trainer.objects.filter(kilometers_walked__lte=t.kilometers_walked).count() / trainers
         context['bw'] = Trainer.objects.filter(battles_won__lte=t.battles_won).count() / trainers
+        context['updates'] = t.updates.order_by('created_at')
         return context
 
     def get_object(self):

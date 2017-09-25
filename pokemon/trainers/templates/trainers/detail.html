@@ -7,7 +7,6 @@
 {% block content %}
 <br/>
 <a href="{% url 'trainers' %}">< Back to all Trainers</a>
-<h1>{{ object.username }}{% if user == object.user %} <a href="{% url 'trainer-edit' username=object.username %}" class="btn btn-lg btn-primary">Edit</a>{% endif %}</h1>
 <hr/>
 <style>
   img {
@@ -15,15 +14,17 @@
   }
   .pokemon {
     background-color: #eee;
+    border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
     height: 170px;
   }
 </style>
 <div class="row">
+
   <div class="col-md-4">
     <div class="well text-center">
-      <h2>Trainer Stats</h2>
+      <h1>{{ object.username }}{% if user == object.user %} <a href="{% url 'trainer-edit' username=object.username %}" class="btn btn-lg btn-primary">Edit</a>{% endif %}</h1>
       <hr/>
       <i>Last Updated: {{ object.updated_at | date }}</i>
       <h3>Level {{ object.level }} <img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/></h3>
@@ -49,12 +50,25 @@
         </div>
       </div>
       <hr/>
-      <h3>Trainer Percentiles</h3>
-      <canvas id="trainer-radar" height="300"></canvas>
+      <h2>Badges {% if user == object.user %} <a href="{% url 'badge-application' %}" class="btn btn-lg btn-primary">Apply for a Badge</a>{% endif %}</h2>
+      <hr/>
+      <div class="row">
+        {% for badge in object.trainer_badges.all %}
+        <div class="col-sm-6">
+          <div class="pokemon">
+            <a href="#" data-toggle="tooltip" title="{{ badge.badge.description }}">
+              <img src="{{ badge.badge.logo.url }}" style="max-height:100px;"/>
+            </a>
+            <p>{{ badge.badge.name }}<br/>{{ badge.created_at | date }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
     </div>
   </div>
+
   <div class="col-md-8">
-    <div class="well text-center">
+    <div class="text-center">
       <h2>Pokemon Showcase</h2>
       <hr/>
       <div class="row">
@@ -72,27 +86,41 @@
         <div class="col-sm-12 text-center">
           <a href="{% url 'trainer-edit' username=object.username %}" class="btn btn-lg btn-primary">Add Pokemon!</a>
         </div>
+        {% else %}
+        <div class="col-sm-12 text-center">
+          <p>None :(</p>
+        </div>
         {% endif %}
       {% endfor %}
       </div>
     </div>
-    <div class="well text-center">
-      <h2>Badges {% if user == object.user %} <a href="{% url 'badge-application' %}" class="btn btn-lg btn-primary">Apply for a Badge</a>{% endif %}</h2>
+    <hr/>
+    <div class="text-center">
+      <h2>Stats</h2>
       <hr/>
       <div class="row">
-        {% for badge in object.trainer_badges.all %}
-        <div class="col-sm-3 col-xs-4">
-          <div class="pokemon">
-            <a href="#" data-toggle="tooltip" title="{{ badge.badge.description }}">
-              <img src="{{ badge.badge.logo.url }}" style="max-height:100px;"/>
-            </a>
-            <p>{{ badge.badge.name }}<br/>{{ badge.created_at | date }}</p>
-          </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="trainer-radar" height="300"></canvas>
         </div>
-        {% endfor %}
+        <div class="col-md-6 col-sm-12">
+          <canvas id="trainer-xp" height="300"></canvas>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="trainer-catches" height="300"></canvas>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="trainer-spins" height="300"></canvas>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="trainer-battles" height="300"></canvas>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="trainer-kms" height="300"></canvas>
+        </div>
       </div>
     </div>
   </div>
+
 </div>
 
 {% endblock %}
@@ -100,7 +128,159 @@
 {% block scripts %}
 <script>
 $(document).ready(function(){
-    $('[data-toggle="tooltip"]').tooltip(); 
+    $('[data-toggle="tooltip"]').tooltip();
+
+    var scales = {
+        xAxes: [{
+          type: "time",
+          time: {
+            format: 'MM/DD/YYYY HH:mm',
+            tooltipFormat: 'll HH:mm'
+          },
+        }],
+    }
+
+    var labels =  [{% for u in updates %}new Date('{{ u.created_at|date:"D d M Y" }} {{ u.created_at|time:"H:i" }}'), {% endfor %}]
+
+    new Chart($('#trainer-xp'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "XP",
+          data: [{% for u in updates %}{{ u.xp }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "XP",
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+
+    new Chart($('#trainer-catches'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "Pokemon Caught",
+          data: [{% for u in updates %}{{ u.pokemon_caught }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "Pokemon Caught",
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+
+    new Chart($('#trainer-spins'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "Pokestops",
+          data: [{% for u in updates %}{{ u.pokestops_spun }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "Pokestops",
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+
+    new Chart($('#trainer-battles'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "Battles Won",
+          data: [{% for u in updates %}{{ u.battles_won }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "Battles Won",
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
+
+    new Chart($('#trainer-kms'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "KMs Walked",
+          data: [{% for u in updates %}{{ u.kilometers_walked }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "KMs Walked",
+        },
+        legend: {
+          display: false
+        }
+      }
+    });
 
     var radar = new Chart($("#trainer-radar"), {
       type: 'radar',
@@ -139,6 +319,10 @@ $(document).ready(function(){
             suggestedMax: 100,
             suggestedMin: 0
           }
+        },
+        title: {
+          display: true,
+          text: "Trainer Percentiles"
         },
         tooltips: {
           enabled: true,
