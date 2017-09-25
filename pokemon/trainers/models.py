@@ -60,6 +60,12 @@ class Trainer(models.Model):
     kilometers_walked = models.FloatField()
     pokedex_number = models.IntegerField()
 
+    __original_xp = None
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.__original_xp = self.xp
+
     @property
     def url(self):
         return self.get_absolute_url()
@@ -122,7 +128,7 @@ class Trainer(models.Model):
 
     def save(self, *args, **kwargs):
         self.updated_at = timezone.now()
-        if self.pk:
+        if self.pk and self.xp != self.__original_xp:
             TrainerUpdate.objects.create(
                 trainer=self,
                 created_at=timezone.now(),
