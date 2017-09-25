@@ -53,13 +53,14 @@
                   {% else %}
                   <li><a href="{% url 'trainer-create' %}">My Trainer Profile</a></li>
                   {% endif %}
-                  {% if user.is_staff %}
-                  <li><a href="{% url 'admin:index' %}">Admin</a></li>
-                  {% endif %}
                   <li><a href="{% url 'account_logout' %}?next=/">Sign Out</a></li>
                 </ul>
               </li>
+              {% if user.is_staff %}
+              <li><a href="{% url 'admin:index' %}">Admin</a></li>
               {% endif %}
+              {% endif %}
+              <li><a href="{% url 'faq' %}">Faq</a></li>
             </ul>
           </div>
         </div>
