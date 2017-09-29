@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
     'compressor',
     'debug_toolbar',
+    'django_crontab',
     'django_extensions',
     'rest_framework',
 
@@ -251,6 +252,14 @@ LOGIN_REDIRECT_URL = reverse_lazy('trainers')
 
 
 PAGINATE_BY = 40
+
+CRONJOBS = [
+    ('*/15 * * * *', 'django.core.management.call_command', ['create_gym_log']),
+]
+
+CRONTAB_COMMAND_PREFIX = '/bin/date >> /home/ubuntu/logs/crons.log; '
+CRONTAB_COMMAND_SUFFIX = ' >> /home/ubuntu/logs/crons.log 2>&1'
+CRONTAB_PYTHON_EXECUTABLE = os.path.join(BASE_DIR, 'venv/bin/python')
 
 
 # import local settings to override
