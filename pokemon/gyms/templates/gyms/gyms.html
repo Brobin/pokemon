@@ -13,7 +13,7 @@
   var gymChart = new Chart($('#gyms'), {
     type: 'line',
     data: {
-      labels: [{% for l in labels %}new Date('{{ l|date:"D d M Y" }} {{ u.created_at|time:"H:i" }}'),{% endfor %}],
+      labels: [{% for l in labels %}new Date('{{ l|date:"D d M Y" }} {{ l|time:"H:i" }}'),{% endfor %}],
       datasets: [{
         label: 'Mystic',
         backgroundColor: "rgb(54, 162, 235)",
