@@ -37,6 +37,15 @@
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      scales: {
+        xAxes :[{
+          type: 'time',
+          time: {
+            tooltipFormat: 'MMM D YYYY h:mm A',
+            unit: 'day'
+          }
+        }]
+      }
     }
   });
 </script>

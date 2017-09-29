@@ -14,7 +14,6 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         scraper = cfscrape.create_scraper()
         data = scraper.get(settings.API_URL)
-        print(data)
         gyms = data.json()['gyms']
         teams = [gyms[key]['team_id'] for key in gyms]
         counter = dict(Counter(teams))
