@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Lincoln Gym Control{% endblock %}
+
+{% block content %}
+<div class="well">
+    <canvas id="gyms" height="500"></canvas>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+  var gymChart = new Chart($('#gyms'), {
+    type: 'line',
+    data: {
+      labels: [{% for l in labels %}"{{ l }}"{% endfor %}],
+      datasets: [{
+        label: 'Mystic',
+        backgroundColor: "rgb(54, 162, 235)",
+        borderColor: "rgb(54, 162, 235)",
+        data: {{ mystic | safe }},
+      },{
+        label: 'Valor',
+        backgroundColor: "rgb(255, 99, 132)",
+        borderColor: "rgb(255, 99, 132)",
+        data: {{ valor | safe }},
+      },{
+        label: 'Instinct',
+        backgroundColor: "rgb(255, 205, 86)",
+        borderColor: "rgb(255, 205, 86)",
+        data: {{ instinct | safe }},
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  });
+</script>
+{% endblock %}

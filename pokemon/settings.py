@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
 
     'pokemon.faq',
+    'pokemon.gyms',
     'pokemon.trainers',
 ]
 
