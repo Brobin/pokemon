@@ -3,8 +3,40 @@
 {% block title %}Lincoln Gym Control{% endblock %}
 
 {% block content %}
+<h1>Gym Control</h1>
+
+<hr/>
+
 <div class="well">
     <canvas id="gyms" height="500"></canvas>
+</div>
+
+<h1>All Time Stats</h1>
+
+<hr/>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="well text-center">
+      <h2 class="text-info">Mystic</h2>
+      <h3 style="font-size:40px">{{ stats.mystic_pct|floatformat:2 }}%</h3>
+      <p>Min: <b>{{ stats.mystic_min }}</b> Max: <b>{{ stats.mystic_max }}</b></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="well text-center">
+      <h2 class="text-danger">Valor</h2>
+      <h3 style="font-size:40px">{{ stats.valor_pct|floatformat:2 }}%</h3>
+      <p>Min: <b>{{ stats.valor_min }}</b> Max: <b>{{ stats.valor_max }}</b></p>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="well text-center">
+      <h2 class="text-warning">Instinct</h2>
+      <h3 style="font-size:40px">{{ stats.instinct_pct|floatformat:2 }}%</h3>
+      <p>Min: <b>{{ stats.instinct_min }}</b> Max: <b>{{ stats.instinct_max }}</b></p>
+    </div>
+  </div>
 </div>
 {% endblock %}
 
