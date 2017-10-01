@@ -1,4 +1,7 @@
+from datetime import timedelta
+
 from django.db.models import Avg, Max, Min
+from django.utils import timezone
 from django.views.generic import TemplateView
 
 from .models import GymLog
@@ -9,7 +12,8 @@ class GymView(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        queryset = GymLog.objects.order_by('created_at')
+        yesterday = timezone.now() - timedelta(days=1)
+        queryset = GymLog.objects.filter(created_at__gte=yesterday).order_by('created_at')
         context['labels'] = list(queryset.values_list('created_at', flat=True))
         context['mystic'] = list(queryset.values_list('mystic', flat=True))
         context['valor'] = list(queryset.values_list('valor', flat=True))
