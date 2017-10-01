@@ -19,8 +19,6 @@
     <canvas id="gyms" height="400"></canvas>
 </div>
 
-<h1>All Time Stats</h1>
-
 <hr/>
 
 <div class="row">
@@ -52,7 +50,7 @@
 <script src="{% static 'js/gyms.js' %}"></script>
 <script>
   var model = new GymViewModel([{% for log in logs %}
-    new GymLog(new Date("{{ log.created_at|date:'M d Y h:m A' }}"), {{ log.mystic }}, {{ log.valor}}, {{ log.instinct }}),{% endfor %}
+    new GymLog(new Date("{{ log.created_at|date:'M d Y h:i A' }}{{ log.created_at|time:'M' }}"), {{ log.mystic }}, {{ log.valor}}, {{ log.instinct }}),{% endfor %}
   ]);
 
   var chart = new Chart($('#gyms'), {
@@ -81,7 +79,7 @@
         }]
       },
       elements: {
-        point:{
+        point: {
           radius: 0
         }
       }
