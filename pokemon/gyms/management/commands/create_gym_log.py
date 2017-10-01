@@ -13,6 +13,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         scraper = cfscrape.create_scraper()
+        scraper.headers.update({'referer': 'http://lincroad.com'})
         data = scraper.get(settings.API_URL)
         gyms = data.json()['gyms']
         teams = [gyms[key]['team_id'] for key in gyms]
