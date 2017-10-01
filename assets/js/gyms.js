@@ -1,3 +1,34 @@
+Chart.Controller.prototype.getElementsAtEvent = function(e) {
+    var helpers = Chart.helpers;
+    var eventPosition = helpers.getRelativePosition(e, this.chart);
+    var elementsArray = [];
+
+    var found = (function() {
+        if (this.data.datasets) {
+        for (var i = 0; i < this.data.datasets.length; i++) {
+            if (helpers.isDatasetVisible(this.data.datasets[i])) {
+            for (var j = 0; j < this.data.datasets[i].metaData.length; j++) {
+                if (this.data.datasets[i].metaData[j].inLabelRange(eventPosition.x, eventPosition.y)) {
+                return this.data.datasets[i].metaData[j];
+                }
+            }
+            }
+        }
+        }
+    }).call(this);
+
+    if (!found) {
+        return elementsArray;
+    }
+
+    helpers.each(this.data.datasets, function(dataset, dsIndex) {
+        if (helpers.isDatasetVisible(dataset)) {
+        elementsArray.push(dataset.metaData[found._index]);
+        }
+    });
+
+    return elementsArray;
+};
 
 function GymLog(created, mystic, valor, instinct) {
     var self = this;
@@ -12,10 +43,9 @@ function GymLog(created, mystic, valor, instinct) {
 }
 
 
-function GymViewModel() {
+function GymViewModel(gymLogs) {
     var self = this;
-    self.chart = chart;
-    self.gymLogs = ko.observableArray([]);
+    self.gymLogs = ko.observableArray(gymLogs);
     self.filter = ko.observable(1);
 
     self.filterDate = ko.computed(function() {
@@ -75,32 +105,29 @@ function GymViewModel() {
     self.maxInstinct = ko.computed(function(){return self.max('instinct')});
     self.avgInstinct = ko.computed(function(){return self.avg('instinct')});
 
+    self.labels = ko.computed(function(){
+        return self.logs().map(function(log){return log.created});
+    });
+
     self.chartData = ko.computed(function() {
-        var x = self.logs().map(function(log){return log.created});
         return [{
-            x: x,
-            y: self.logs().map(function(log){return log.mystic}),
-            type: 'scatter',
-            name: 'Mystic',
-            marker: {
-                color: '#3366cc'
-            }
+            label: 'Mystic',
+            data: self.logs().map(function(log){return log.mystic}),
+            backgroundColor: "rgb(54, 162, 235)",
+            borderColor: "rgb(54, 162, 235)",
+            fill: false,
         },{
-            x: x,
-            y: self.logs().map(function(log){return log.valor}),
-            type: 'scatter',
-            name: 'Valor',
-            marker: {
-                color: '#dc3912'
-            }
+            label: 'Valor',
+            data: self.logs().map(function(log){return log.valor}),
+            backgroundColor: "rgb(255, 99, 132)",
+            borderColor: "rgb(255, 99, 132)",
+            fill: false,
         },{
-            x: x,
-            y: self.logs().map(function(log){return log.instinct}),
-            type: 'scatter',
-            name: 'Instinct',
-            marker: {
-                color: '#ff9900'
-            }
+            label: 'Instinct',
+            data: self.logs().map(function(log){return log.instinct}),
+            backgroundColor: "rgb(255, 205, 86)",
+            borderColor: "rgb(255, 205, 86)",
+            fill: false,
         }];
     });
 }

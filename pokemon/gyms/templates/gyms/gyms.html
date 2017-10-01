@@ -1,14 +1,22 @@
 {% extends "base.html" %}
 
+{% load staticfiles %}
+
 {% block title %}Lincoln Gym Control{% endblock %}
 
 {% block content %}
-<h1>Gym Control (Past 24 Hours)</h1>
+<h1>Lincoln Gym Control</h1>
 
 <hr/>
 
+<ul class="nav nav-tabs">
+  <li class="active"><a href="#day" data-toggle="tab" onclick="filter(1);">Past Day</a></li>
+  <li><a href="#week" data-toggle="tab" onclick="filter(7);">Past Week</a></li>
+  <li><a href="#all" data-toggle="tab" onclick="filter(1000000);">All Time</a></li>
+</ul>
+
 <div class="well">
-    <canvas id="gyms" height="500"></canvas>
+    <canvas id="gyms" height="400"></canvas>
 </div>
 
 <h1>All Time Stats</h1>
@@ -16,87 +24,42 @@
 <hr/>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-sm-4">
     <div class="well text-center">
       <h2 class="text-info">Mystic</h2>
-      <h3 style="font-size:40px">{{ stats.mystic_pct|floatformat:2 }}%</h3>
-      <p>Min: <b>{{ stats.mystic_min }}</b> Max: <b>{{ stats.mystic_max }}</b></p>
+      <h3 style="font-size:40px" data-bind="text: avgMystic"></h3>
+      <p>Min: <b class="text-danger" data-bind="text: minMystic"></b> Max: <b class="text-success" data-bind="text: maxMystic"></b></p>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-sm-4">
     <div class="well text-center">
       <h2 class="text-danger">Valor</h2>
-      <h3 style="font-size:40px">{{ stats.valor_pct|floatformat:2 }}%</h3>
-      <p>Min: <b>{{ stats.valor_min }}</b> Max: <b>{{ stats.valor_max }}</b></p>
+      <h3 style="font-size:40px" data-bind="text: avgValor"></h3>
+      <p>Min: <b class="text-danger" data-bind="text: minValor"></b> Max: <b class="text-success" data-bind="text: maxValor"></b></p>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-sm-4">
     <div class="well text-center">
       <h2 class="text-warning">Instinct</h2>
-      <h3 style="font-size:40px">{{ stats.instinct_pct|floatformat:2 }}%</h3>
-      <p>Min: <b>{{ stats.instinct_min }}</b> Max: <b>{{ stats.instinct_max }}</b></p>
+      <h3 style="font-size:40px" data-bind="text: avgInstinct"></h3>
+      <p>Min: <b class="text-danger" data-bind="text: minInstinct"></b> Max: <b class="text-success" data-bind="text: maxInstinct"></b></p>
     </div>
   </div>
 </div>
 {% endblock %}
 
 {% block scripts %}
+<script src="{% static 'js/gyms.js' %}"></script>
 <script>
-  Chart.Controller.prototype.getElementsAtEvent = function(e) {
-    var helpers = Chart.helpers;
-    var eventPosition = helpers.getRelativePosition(e, this.chart);
-    var elementsArray = [];
+  var model = new GymViewModel([{% for log in logs %}
+    new GymLog(new Date("{{ log.created_at|date:'M d Y h:m A' }}"), {{ log.mystic }}, {{ log.valor}}, {{ log.instinct }}),{% endfor %}
+  ]);
 
-    var found = (function() {
-      if (this.data.datasets) {
-        for (var i = 0; i < this.data.datasets.length; i++) {
-          if (helpers.isDatasetVisible(this.data.datasets[i])) {
-            for (var j = 0; j < this.data.datasets[i].metaData.length; j++) {
-              if (this.data.datasets[i].metaData[j].inLabelRange(eventPosition.x, eventPosition.y)) {
-                return this.data.datasets[i].metaData[j];
-              }
-            }
-          }
-        }
-      }
-    }).call(this);
-
-    if (!found) {
-      return elementsArray;
-    }
-
-    helpers.each(this.data.datasets, function(dataset, dsIndex) {
-      if (helpers.isDatasetVisible(dataset)) {
-        elementsArray.push(dataset.metaData[found._index]);
-      }
-    });
-
-    return elementsArray;
-  };
-
-  var gymChart = new Chart($('#gyms'), {
+  var chart = new Chart($('#gyms'), {
     type: 'line',
     data: {
-      labels: [{% for l in labels %}new Date('{{ l|date:"D d M Y" }} {{ l|time:"H:i" }}'),{% endfor %}],
-      datasets: [{
-        label: 'Mystic',
-        backgroundColor: "rgb(54, 162, 235)",
-        borderColor: "rgb(54, 162, 235)",
-        fill: false,
-        data: {{ mystic | safe }},
-      },{
-        label: 'Valor',
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgb(255, 99, 132)",
-        fill: false,
-        data: {{ valor | safe }},
-      },{
-        label: 'Instinct',
-        backgroundColor: "rgb(255, 205, 86)",
-        borderColor: "rgb(255, 205, 86)",
-        fill: false,
-        data: {{ instinct | safe }},
-      }]
+      labels: model.labels(),
+      datasets: model.chartData()
     },
     options: {
       responsive: true,
@@ -116,8 +79,23 @@
             unit: 'hour'
           }
         }]
+      },
+      elements: {
+        point:{
+          radius: 0
+        }
       }
     }
   });
+
+  ko.applyBindings(model);
+
+  function filter(num) {
+    model.filter(num)
+    chart.data.labels = model.labels();
+    chart.data.datasets = model.chartData();
+    chart.update();
+  }
+  
 </script>
 {% endblock %}
