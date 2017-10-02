@@ -90,6 +90,11 @@
 
   function filterData(num) {
     model.filter(num);
+    if(num == 1) {
+      chart.options.scales.xAxes[0].time.unit = 'hour';
+    } else {
+      chart.options.scales.xAxes[0].time.unit = 'day';
+    }
     chart.data.labels = model.labels();
     chart.data.datasets = model.chartData();
     chart.update();
