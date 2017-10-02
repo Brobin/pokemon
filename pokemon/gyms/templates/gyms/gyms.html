@@ -23,31 +23,52 @@
   "></canvas>
 </div>
 
-<hr/>
-
 <div class="row">
   <div class="col-sm-4">
     <div class="well text-center">
-      <h2 class="text-info">Mystic</h2>
+      <h2 class="mystic">Mystic</h2>
       <h3 style="font-size:40px" data-bind="text: avgMystic"></h3>
       <p>Min: <b class="text-danger" data-bind="text: minMystic"></b> Max: <b class="text-success" data-bind="text: maxMystic"></b></p>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="well text-center">
-      <h2 class="text-danger">Valor</h2>
+      <h2 class="valor">Valor</h2>
       <h3 style="font-size:40px" data-bind="text: avgValor"></h3>
       <p>Min: <b class="text-danger" data-bind="text: minValor"></b> Max: <b class="text-success" data-bind="text: maxValor"></b></p>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="well text-center">
-      <h2 class="text-warning">Instinct</h2>
+      <h2 class="instinct">Instinct</h2>
       <h3 style="font-size:40px" data-bind="text: avgInstinct"></h3>
       <p>Min: <b class="text-danger" data-bind="text: minInstinct"></b> Max: <b class="text-success" data-bind="text: maxInstinct"></b></p>
     </div>
   </div>
 </div>
+
+
+<h3>Past 3 Hours</h3>
+
+<hr/>
+
+<table class="table table-striped table-hover">
+  <thead>
+    <th>Time</th>
+    <th>Mystic</th>
+    <th>Valor</th>
+    <th>Instinct</th>
+  </thead>
+  <tbody data-bind="foreach: recent">
+    <tr>
+      <td data-bind="text: time"></td>
+      <td data-bind="text: mystic" class="mystic"></td>
+      <td data-bind="text: valor" class="valor"></td>
+      <td data-bind="text: instinct" class="instinct"></td>
+    </tr>
+  </tbody>
+</table>
+
 {% endblock %}
 
 {% block scripts %}
