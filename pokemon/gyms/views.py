@@ -14,14 +14,9 @@ from .serializers import GymLogSerializer
 
 class GymLogData(ModelViewSet):
     model = GymLog
-    queryset = GymLog.objects.all()
+    queryset = GymLog.objects.order_by('created_at')
     serializer_class = GymLogSerializer
 
 
 class GymView(TemplateView):
     template_name = 'gyms/gyms.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['logs'] = GymLog.objects.order_by('created_at')
-        return context

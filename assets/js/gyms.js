@@ -43,9 +43,9 @@ function GymLog(created, mystic, valor, instinct) {
 }
 
 
-function GymViewModel(gymLogs) {
+function GymViewModel() {
     var self = this;
-    self.gymLogs = ko.observableArray(gymLogs);
+    self.gymLogs = ko.observableArray([]);
     self.filter = ko.observable(1);
 
     self.filterDate = ko.computed(function() {
