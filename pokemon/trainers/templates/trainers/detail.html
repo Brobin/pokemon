@@ -143,7 +143,7 @@ $(document).ready(function(){
     var labels =  [{% for u in updates %}new Date('{{ u.created_at|date:"D d M Y" }} {{ u.created_at|time:"H:i" }}'), {% endfor %}]
 
     new Chart($('#trainer-xp'), {
-      type: 'line',
+      type: 'LineWithLine',
       data: {
         labels: labels,
         datasets: [{
@@ -166,12 +166,15 @@ $(document).ready(function(){
         },
         legend: {
           display: false
+        },
+        tooltips: {
+          intersect: false
         }
       }
     });
 
     new Chart($('#trainer-catches'), {
-      type: 'line',
+      type: 'LineWithLine',
       data: {
         labels: labels,
         datasets: [{
@@ -194,12 +197,15 @@ $(document).ready(function(){
         },
         legend: {
           display: false
+        },
+        tooltips: {
+          intersect: false
         }
       }
     });
 
     new Chart($('#trainer-spins'), {
-      type: 'line',
+      type: 'LineWithLine',
       data: {
         labels: labels,
         datasets: [{
@@ -222,12 +228,15 @@ $(document).ready(function(){
         },
         legend: {
           display: false
+        },
+        tooltips: {
+          intersect: false
         }
       }
     });
 
     new Chart($('#trainer-battles'), {
-      type: 'line',
+      type: 'LineWithLine',
       data: {
         labels: labels,
         datasets: [{
@@ -250,12 +259,15 @@ $(document).ready(function(){
         },
         legend: {
           display: false
+        },
+        tooltips: {
+          intersect: false
         }
       }
     });
 
     new Chart($('#trainer-kms'), {
-      type: 'line',
+      type: 'LineWithLine',
       data: {
         labels: labels,
         datasets: [{
@@ -278,6 +290,9 @@ $(document).ready(function(){
         },
         legend: {
           display: false
+        },
+        tooltips: {
+          intersect: false
         }
       }
     });
