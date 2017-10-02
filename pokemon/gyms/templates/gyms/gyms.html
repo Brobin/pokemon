@@ -15,8 +15,12 @@
   <li><a href="#all" data-toggle="tab" onclick="filterData(1000000);">All Time</a></li>
 </ul>
 
-<div class="well">
-    <canvas id="gyms" height="400"></canvas>
+<div class="well" style="height:450px;">
+  <div id="pokeball">
+    <img src="{% static 'img/pokeball.gif' %}" style="padding:75px calc(50% - 100px);">
+  </div>
+  <canvas id="gyms" height="400" style="display:none;
+  "></canvas>
 </div>
 
 <hr/>
@@ -102,7 +106,9 @@
     ko.applyBindings(model);
     setTimeout(function(){
       filterData(1);
-    }, 100);
+      $('#pokeball').hide();
+      $('#gyms').show();
+    }, 1000);
   });
 </script>
 {% endblock %}
