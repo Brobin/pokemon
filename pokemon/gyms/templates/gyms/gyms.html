@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load staticfiles %}
+{% load compress staticfiles %}
 
 {% block title %}Lincoln Gym Control{% endblock %}
 
@@ -51,6 +51,7 @@
 {% endblock %}
 
 {% block scripts %}
+{% compress js %}
 <script src="{% static 'js/gyms.js' %}"></script>
 <script>
   var model = new GymViewModel();
@@ -111,4 +112,5 @@
     }, 1000);
   });
 </script>
+{% endcompress %}
 {% endblock %}
