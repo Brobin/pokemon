@@ -55,7 +55,7 @@
 <script>
   var model = new GymViewModel();
   var chart = new Chart($('#gyms'), {
-    type: 'line',
+    type: 'LineWithLine',
     data: {
       labels: model.labels(),
       datasets: model.chartData()
