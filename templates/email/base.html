@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>{% block title %}{% endblock %}</title>
+    <style type="text/css">
+        /* General Reset */
+        body{margin:0; padding:0;}
+        img{border:0 none; height:auto; line-height:100%; outline:none; text-decoration:none;}
+        a img{border:0 none;}.imageFix{display:block;}
+        table, td{border-collapse:collapse;}#bodyTable{height:100% !important; margin:0; padding:0; width:100% !important;}
+        /* CLIENT-SPECIFIC RESETS */
+        .ReadMsgBody{width:100%;} .ExternalClass{width:100%;}
+        .ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div{line-height:100%;}
+        table, td{mso-table-lspace:0pt; mso-table-rspace:0pt;}
+        img{-ms-interpolation-mode: bicubic;}
+        body, table, td, p, a, li, blockquote{-ms-text-size-adjust:100%; -webkit-text-size-adjust:100%;}
+    </style>
+</head>
+<body bgcolor="f2f2f2" style="background: #f2f2f2;">
+<table border="0" cellpadding="0" cellspacing="0" width="100%" style="background: #f2f2f2;">
+    <tr>
+        <td height="15"></td>
+    </tr>
+    <tr>
+        <td align="center" valign="top" height="58">
+            <a href="#">
+                <img src="https://lnkpogo.com/static/img/logo.png" alt="LNK PoGo" height="50px" style="padding:30px;"/>
+            </a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" valign="top">
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="white" style="background: #fff;">
+
+                {% with padding as 48 %}
+                {% include "email/partials/_padding.html" %}
+                {% endwith %}
+
+                <tr>
+                    <td>
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="white" style="background: #fff;">
+                            <tr>
+                                <td align="center">
+                                    <table border="0" cellpadding="0" cellspacing="0" bgcolor="white" style="background: #fff;max-width:620px">
+                                        <tr>
+                                            <td align="center">
+                                                <span style="color:#333333; font-size:20px; font-family:Lato, Helvetica, Arial, Verdana, sans-serif;">
+                                                    <b>{% block email_heading %}{% endblock %}</b>
+                                                </span>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                {% with padding as 45 %}
+                {% include "email/partials/_padding.html" %}
+                {% endwith %}
+
+                {% block email_content %}{% endblock %}
+
+            </table>
+        </td>
+    </tr>
+    <tr align="center">
+        <td><p style="color:#636363; font-size:14px; font-family: Helvetica-neue, Arial, Verdana, sans-serif; line-height: 21px;"><a href="https://lnkpogo.com/auth/facebook/login" style="font-family: Helvetica, Arial, Verdana, sans-serif; color: #3591AB; text-decoration: none;">Login</a> | <a href="https://lnkpogo.com/" style="font-family: Helvetica, Arial, Verdana, sans-serif; color: #3591AB; text-decoration: none;">Leaderboard</a</p></td>
+    </tr>
+    <tr align="center">
+        <td><span style="color:#636363; font-size:14px; font-family: Helvetica-neue, Arial, Verdana, sans-serif; line-height: 21px;">Copyright © 2017 Tobin Brown</span></td>
+    </tr>
+    <tr>
+        <td height="48"></td>
+    </tr>
+</table>
+</body>
+</html>

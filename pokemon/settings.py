@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'django_crontab',
     'django_extensions',
+    'email_interceptor',
     'rest_framework',
 
     'allauth',

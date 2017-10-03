@@ -1,0 +1,7 @@
+Hey {{ trainer.username }},
+
+It has been {{ days }} since you've updated your Trainer Profile on lnkpogo.com.  Log in now to edit your profile and compare your progress with other trainers.
+
+Happy hunting!
+
+– TheBrobin

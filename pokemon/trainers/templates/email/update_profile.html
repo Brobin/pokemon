@@ -1,0 +1,29 @@
+{% extends "email/base.html" %}
+
+{% block email_heading %}Update your Trainer Profile!{% endblock %}
+
+{% block email_content %}
+<tr>
+    <td align="center">
+        <table border="0" cellpadding="0" cellspacing="0" bgcolor="white" style="background: #fff;max-width:620px;">
+            <tr>
+                <td>
+                    <p style="color:#636363; font-size:14px; font-family: Helvetica-neue, Arial, Verdana, sans-serif; line-height: 21px;">Hey {{ trainer.username }},<br/>
+                    </p>
+                    <p style="color:#636363; font-size:14px; font-family: Helvetica-neue, Arial, Verdana, sans-serif; line-height: 21px;">It has been {{ days }} days since you've updated your Trainer Profile on <a href="https://lnkpogo.com/">lnkpogo.com</a>.</p>
+                    
+                    <p style="color:#636363; font-size:14px; font-family: Helvetica-neue, Arial, Verdana, sans-serif; line-height: 21px;"><a href="https://lnkpogo.com/{% url 'trainer-edit' username=trainer.username %}">Log in now to update your profile</a> and compare your progress with other trainers!<br/>
+                    </p>
+                    <p style="color:#636363; font-size:14px; font-family: Helvetica-neue, Arial, Verdana, sans-serif; line-height: 21px;">Happy hunting!<br/>
+                    </p>
+                    <p style="color:#636363; font-size:14px; font-family: Helvetica-neue, Arial, Verdana, sans-serif; line-height: 21px;">– TheBrobin<br/>
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+{% with padding as 45 %}
+{% include "email/partials/_padding.html" %}
+{% endwith %}
+{% endblock %}
