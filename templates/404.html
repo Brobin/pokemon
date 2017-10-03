@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+
+{% block title %}Page not Found{% endblock %}
+
+{% block content %}
+<div class="text-center" style="padding-top:10%">
+  <img src="{% static 'img/break.gif' %}" width="400px" style="max-width:100%"/>
+  <h1 style="font-size:60px">404</h1>
+  <h3>Page not Found</h3>
+  <p>Try hitting up one of the links in navbar to get back to the good stuff!</p>
+</div>
+{% endblock %}
