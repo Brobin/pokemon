@@ -33,7 +33,7 @@ class BadgeApplicationView(LoginMixin, CreateView):
 
 class BadgeList(LoginMixin, ListView):
     template_name = 'badges/list.html'
-    queryset = Badge.objects.annotate(awarded=Count('trainer_badges'))
+    queryset = Badge.objects.annotate(awarded=Count('trainer_badges')).order_by('-awarded')
 
 
 class PokemonList(LoginMixin, ListView):

@@ -5,16 +5,32 @@
 {% block content %}
 <h1>Community Badges</h1>
 <p>These are community given badges for outstanding pokemasters in Lincoln. Contact a mod if you believe youa re eligible for a Community Badge</p>
+
 <div class="row">
-  {% for badge in object_list %}
-  <div class="col-md-3 col-xs-6">
-    <div class="well text-center">
-      <img src="{{ badge.logo.url }}" style="max-width:100%;max-height:200px;"/>
-      <h2>{{ badge.name }}</h2>
-      <p>{{ badge.description }}</p>
-      <span>{{ badge.awarded }} Awarded</span>
+{% for badge in object_list %}
+{% if forloop.counter0|divisibleby:2 %}</div><div class="row">{% endif %}
+  <div class="col-sm-6">
+    <div class="well">
+      <div class="row">
+        <div class="col-xs-5">
+          <img src="{{ badge.logo.url }}" style="max-width:100%;max-height:200px;"/>
+        </div>
+        <div class="col-xs-7">
+          <h2>{{ badge.name }}</h2>
+          <p>{{ badge.description }}</p>
+          <span>{{ badge.awarded }} Awarded</span>
+          <div class="hidden-md hidden-sm hidden-xs">
+            <hr style="margin-top:10px;margin-bottom:10px;"/>
+            <p class="hidden-md hidden-sm hidden-xs">{% for tb in badge.trainer_badges.all %}<a href="{{ tb.trainer.url }}">{{ tb.trainer.username }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+          </div>
+        </div>
+        <div class="col-xs-12 hidden-lg ">
+          <hr/>
+          <p>{% for tb in badge.trainer_badges.all %}<a href="{{ tb.trainer.url }}">{{ tb.trainer.username }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+        </div>
+      </div>
     </div>
   </div>
-  {% endfor %}
+{% endfor %}
 </div>
 {% endblock %}
