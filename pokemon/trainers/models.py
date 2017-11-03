@@ -12,7 +12,7 @@ log = logging.getLogger(__name__)
 
 
 IV = [(x, str(x)) for x in range(0, 16)]
-NUMBER = ((x + 1, name) for x, name in enumerate(POKEMON))
+NUMBER = ((int(name.split(' -')[0]), name) for x, name in enumerate(POKEMON))
 
 MYSTIC = 1
 VALOR = 2

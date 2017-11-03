@@ -249,4 +249,9 @@ POKEMON = [
     "248 - Tyranitar",
     "249 - Lugia",
     "250 - Ho-Oh",
+    "302 - Sableye",
+    "353 - Shuppet",
+    "354 - Banette",
+    "355 - Duskull",
+    "356 - Dusclops",
 ]
