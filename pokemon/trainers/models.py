@@ -205,7 +205,9 @@ class FavoritePokemon(models.Model):
 
     @property
     def name(self):
-        return POKEMON[self.number - 1]
+        for p in POKEMON:
+            if str(self.number) + ' -' in p:
+                return p.split(' - ')[1]
 
     def __str__(self):
         return '{0}\'s {1} CP {2}'.format(
