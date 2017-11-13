@@ -1,10 +1,7 @@
 from datetime import timedelta
 
-from django.core import serializers
-from django.db.models import Avg, Max, Min
-from django.http import JsonResponse
 from django.utils import timezone
-from django.views.generic import TemplateView, View
+from django.views.generic import TemplateView
 
 from rest_framework.viewsets import ModelViewSet
 
@@ -14,7 +11,9 @@ from .serializers import GymLogSerializer
 
 class GymLogData(ModelViewSet):
     model = GymLog
-    queryset = GymLog.objects.order_by('created_at')
+    queryset = GymLog.objects.filter(
+        created_at__gte=timezone.now() - timedelta(30)
+    ).order_by('created_at')
     serializer_class = GymLogSerializer
 
 
