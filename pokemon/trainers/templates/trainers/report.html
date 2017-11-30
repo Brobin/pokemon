@@ -25,7 +25,7 @@
         {% for trainer in level_40 %}
         <tr>
           <td>{{ forloop.counter }}</td>
-          <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/>&nbsp;<a href="{{ trainer.url }}"></a>{{ trainer.username }}</a></td>
+          <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/>&nbsp;<a href="{{ trainer.url }}">{{ trainer.username }}</a></td>
           <td>{{ trainer.level }}</td>
           <td>{{ trainer.xp|intcomma }}</td>
         </tr>
