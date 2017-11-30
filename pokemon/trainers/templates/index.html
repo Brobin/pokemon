@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% load staticfiles humanize %}
+{% load staticfiles humanize pokemon %}
 
 {% block title %}Lincoln Pokemon Stats{% endblock %}
 
@@ -14,7 +14,7 @@
     <div class="well">
       <div class="text-center">
         <h5>Experience</h5>
-        <h1>{{ stats.sum_xp | intcomma }}</h1>
+        <h1>{{ stats.sum_xp | intword2 }}</h1>
         <p>{{ stats.avg_xp|floatformat:0 | intcomma }} Average</p>
       </div>
       <table class="table table-hover" style="text-align:none">
@@ -60,7 +60,7 @@
     <div class="well">
       <div class="text-center">
         <h5>Pokemon Caught</h5>
-        <h1>{{ stats.sum_pokemon_caught | intcomma }}</h1>
+        <h1>{{ stats.sum_pokemon_caught | intword2 }}</h1>
         <p>{{ stats.avg_pokemon_caught|floatformat:0 | intcomma }} Average</p>
       </div>
       <table class="table table-hover" style="text-align:none">
@@ -83,7 +83,7 @@
     <div class="well">
       <div class="text-center">
         <h5>Pokestops Spun</h5>
-        <h1>{{ stats.sum_pokestops_spun | intcomma }}</h1>
+        <h1>{{ stats.sum_pokestops_spun | intword2 }}</h1>
         <p>{{ stats.avg_pokestops_spun|floatformat:0 | intcomma }} Average</p>
       </div>
       <table class="table table-hover" style="text-align:none">

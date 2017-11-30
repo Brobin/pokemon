@@ -56,6 +56,7 @@ INSTALLED_APPS = [
     'pokemon.faq',
     'pokemon.gyms',
     'pokemon.trainers',
+    'pokemon.utils',
 ]
 
 SITE_ID = 1
