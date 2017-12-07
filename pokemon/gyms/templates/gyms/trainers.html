@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+<style>
+  td {
+    padding: 2px !important;
+  }
+</style>
+<div class="row">
+{% for trainer in trainers %}
+  <div class="col-sm-4">
+    <h3>{{ trainer.username }} ({{ trainer.gyms|length }})</h3>
+    <table class="table table-striped">
+      <tbody>
+        {% for time, gym in trainer.gyms %}
+        <tr>
+          <td>{{ time|date:'m/d' }}, {{ time|time }}</td>
+          <td>{{ gym }}</td>
+        </tr>{% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% if forloop.counter|divisibleby:3 %}</div><div class="row">{% endif %}
+{% endfor %}
+</div>
+{% endblock %}
