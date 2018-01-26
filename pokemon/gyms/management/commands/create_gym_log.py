@@ -1,4 +1,4 @@
-import cfscrape
+import requests
 
 from collections import Counter
 
@@ -17,5 +17,5 @@ class Command(BaseCommand):
             created_at=timezone.now(),
             mystic=data['mystic'],
             valor=data['valor'],
-            instinct=data['isntinct'],
+            instinct=data['instinct'],
         )
