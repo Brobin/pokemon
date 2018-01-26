@@ -12,15 +12,10 @@ from pokemon.gyms.models import GymLog
 class Command(BaseCommand):
 
     def handle(self, *args, **options):
-        scraper = cfscrape.create_scraper()
-        scraper.headers.update({'referer': 'http://lincroad.com'})
-        data = scraper.get(settings.API_URL)
-        gyms = data.json()['gyms']
-        teams = [gyms[key]['team_id'] for key in gyms]
-        counter = dict(Counter(teams))
+        data = requests.get(settings.API_URL).json()
         GymLog.objects.create(
             created_at=timezone.now(),
-            mystic=counter[1],
-            valor=counter[2],
-            instinct=counter[3],
+            mystic=data['mystic'],
+            valor=data['valor'],
+            instinct=data['isntinct'],
         )
