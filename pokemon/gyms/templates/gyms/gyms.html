@@ -28,21 +28,21 @@
     <div class="well text-center">
       <h2 class="mystic">Mystic</h2>
       <h3 style="font-size:40px" data-bind="text: avgMystic"></h3>
-      <p>Min: <b class="text-danger" data-bind="text: minMystic"></b> Max: <b class="text-success" data-bind="text: maxMystic"></b></p>
+      <p>Min: <b class="text-danger">{{ min_mystic }}</b> Max: <b class="text-success" >{{ max_mystic }}</b></p>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="well text-center">
       <h2 class="valor">Valor</h2>
       <h3 style="font-size:40px" data-bind="text: avgValor"></h3>
-      <p>Min: <b class="text-danger" data-bind="text: minValor"></b> Max: <b class="text-success" data-bind="text: maxValor"></b></p>
+      <p>Min: <b class="text-danger">{{ min_valor }}</b> Max: <b class="text-success" >{{ max_valor }}</b></p>
     </div>
   </div>
   <div class="col-sm-4">
     <div class="well text-center">
       <h2 class="instinct">Instinct</h2>
       <h3 style="font-size:40px" data-bind="text: avgInstinct"></h3>
-      <p>Min: <b class="text-danger" data-bind="text: minInstinct"></b> Max: <b class="text-success" data-bind="text: maxInstinct"></b></p>
+      <p>Min: <b class="text-danger">{{ min_instinct }}</b> Max: <b class="text-success" >{{ max_instinct }}</b></p>
     </div>
   </div>
 </div>

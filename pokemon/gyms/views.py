@@ -4,6 +4,7 @@ import datetime
 from datetime import timedelta
 
 from django.conf import settings
+from django.db.models import Min, Max
 from django.http import JsonResponse
 from django.utils import timezone
 from django.views.generic import TemplateView, View
@@ -24,6 +25,16 @@ class GymLogData(ModelViewSet):
 
 class GymView(TemplateView):
     template_name = 'gyms/gyms.html'
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['min_mystic'] = GymLog.objects.aggregate(m=Min('mystic'))['m']
+        context['max_mystic'] = GymLog.objects.aggregate(m=Max('mystic'))['m']
+        context['min_valor'] = GymLog.objects.aggregate(m=Min('valor'))['m']
+        context['max_valor'] = GymLog.objects.aggregate(m=Max('valor'))['m']
+        context['min_instinct'] = GymLog.objects.aggregate(m=Min('instinct'))['m']
+        context['max_instinct'] = GymLog.objects.aggregate(m=Max('instinct'))['m']
+        return context
 
 
 class GymApiView(View):
