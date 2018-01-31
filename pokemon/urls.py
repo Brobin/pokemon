@@ -14,7 +14,7 @@ urlpatterns = [
     url(r'^gyms/', include('pokemon.gyms.urls')),
     url(r'^trainers/', include('pokemon.trainers.urls')),
     url(r'^legal/$', TemplateView.as_view(template_name='legal.html'), name='legal'),
-    url(r'^404/$', TemplateView.as_view(template_name='404.html'), name='legal'),
+    url(r'^404/$', TemplateView.as_view(template_name='404.html'), name='404'),
     url(r'^$', StatsView.as_view(), name='index'),
 ]
 
