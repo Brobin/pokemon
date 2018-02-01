@@ -48,7 +48,7 @@
       <hr/>
       <div class="row">
         {% for badge in object.trainer_badges.all %}
-        <div class="col-xs-3">
+        <div class="col-xs-3" style="margin-bottom:10px;">
           <a href="#" data-toggle="tooltip" title="{{ badge.badge.name }}">
             <img src="{{ badge.badge.logo.url }}" style="max-height:50px;"/>
           </a>
