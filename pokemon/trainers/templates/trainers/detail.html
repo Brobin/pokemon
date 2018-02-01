@@ -7,17 +7,10 @@
 {% block content %}
 <br/>
 <a href="{% url 'trainers' %}">< Back to all Trainers</a>
-<hr/>
+<hr style="border:none;"/>
 <style>
   img {
     max-width: 100%;
-  }
-  .pokemon {
-    background-color: #eee;
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-    height: 170px;
   }
 </style>
 <div class="row">
@@ -49,18 +42,16 @@
           <span>{{ object.kilometers_walked | intcomma }}</span>
         </div>
       </div>
+      <canvas id="trainer-radar" height="300"></canvas>
       <hr/>
       <h2>Badges {% if user == object.user %} <a href="{% url 'badge-application' %}" class="btn btn-lg btn-primary">Apply for a Badge</a>{% endif %}</h2>
       <hr/>
       <div class="row">
         {% for badge in object.trainer_badges.all %}
-        <div class="col-xs-6">
-          <div class="pokemon">
-            <a href="#" data-toggle="tooltip" title="{{ badge.badge.description }}">
-              <img src="{{ badge.badge.logo.url }}" style="max-height:100px;"/>
-            </a>
-            <p>{{ badge.badge.name }}<br/>{{ badge.created_at | date }}</p>
-          </div>
+        <div class="col-xs-3">
+          <a href="#" data-toggle="tooltip" title="{{ badge.badge.name }}">
+            <img src="{{ badge.badge.logo.url }}" style="max-height:50px;"/>
+          </a>
         </div>
         {% endfor %}
       </div>
@@ -68,7 +59,7 @@
   </div>
 
   <div class="col-md-8">
-    <div class="text-center">
+    <div class="well text-center">
       <h2>Pokemon Showcase</h2>
       <hr/>
       <div class="row">
@@ -94,14 +85,10 @@
       {% endfor %}
       </div>
     </div>
-    <hr/>
-    <div class="text-center">
+    <div class=" well text-center">
       <h2>Stats</h2>
       <hr/>
       <div class="row">
-        <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-radar" height="300"></canvas>
-        </div>
         <div class="col-md-6 col-sm-12">
           <canvas id="trainer-xp" height="300"></canvas>
         </div>
