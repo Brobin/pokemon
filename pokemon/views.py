@@ -23,12 +23,12 @@ class StatsView(TemplateView):
             sum_battles_won=Sum('battles_won'),
             avg_battles_won=Avg('battles_won'),
         )
-        context['xp_leaders'] = Trainer.objects.order_by('-xp')[:10]
-        context['pokedex_leaders'] = Trainer.objects.order_by('-pokedex_number', '-xp')[:10]
-        context['catch_leaders'] = Trainer.objects.order_by('-pokemon_caught', '-xp')[:10]
-        context['spin_leaders'] = Trainer.objects.order_by('-pokestops_spun', '-xp')[:10]
-        context['walking_leaders'] = Trainer.objects.order_by('-kilometers_walked', '-xp')[:10]
-        context['battle_leaders'] = Trainer.objects.order_by('-battles_won', '-xp')[:10]
+        context['xp_leaders'] = Trainer.objects.order_by('-xp')[:5]
+        context['pokedex_leaders'] = Trainer.objects.order_by('-pokedex_number', '-xp')[:5]
+        context['catch_leaders'] = Trainer.objects.order_by('-pokemon_caught', '-xp')[:5]
+        context['spin_leaders'] = Trainer.objects.order_by('-pokestops_spun', '-xp')[:5]
+        context['walking_leaders'] = Trainer.objects.order_by('-kilometers_walked', '-xp')[:5]
+        context['battle_leaders'] = Trainer.objects.order_by('-battles_won', '-xp')[:5]
         context['charts'] = self.get_charts()
         return context
 

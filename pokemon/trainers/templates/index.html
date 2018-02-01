@@ -28,7 +28,7 @@
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'trainers' %}" class="text-center">View More...</a>
+      <a href="{% url 'trainers' %}" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Totals</h3>
       <canvas id="xp-chart" height="300"></canvas>
     </div>
@@ -51,7 +51,7 @@
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'trainers' %}?ordering=-pokedex_number" class="text-center">View More...</a>
+      <a href="{% url 'trainers' %}?ordering=-pokedex_number" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Players per Team</h3>
       <canvas id="players-chart" height="300"></canvas>
     </div>
@@ -61,7 +61,7 @@
       <div class="text-center">
         <h5>Pokemon Caught</h5>
         <h1>{{ stats.sum_pokemon_caught | intword2 }}</h1>
-        <p>{{ stats.avg_pokemon_caught|floatformat:0 | intcomma }} Average</p>
+        <p>{{ stats.avg_pokemon_caught|floatformat:0 | intcomma }} Averafge</p>
       </div>
       <table class="table table-hover" style="text-align:none">
         <tbody>
@@ -74,7 +74,7 @@
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'trainers' %}?ordering=-pokemon_caught" class="text-center">View More...</a>
+      <a href="{% url 'trainers' %}?ordering=-pokemon_caught" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Totals</h3>
       <canvas id="pokemon-chart" height="300"></canvas>
     </div>
@@ -97,7 +97,7 @@
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'trainers' %}?ordering=-pokestops_spun" class="text-center">View More...</a>
+      <a href="{% url 'trainers' %}?ordering=-pokestops_spun" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Totals</h3>
       <canvas id="pokestops-chart" height="300"></canvas>
     </div>
@@ -120,7 +120,7 @@
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'trainers' %}?ordering=-kilometers_walked" class="text-center">View More...</a>
+      <a href="{% url 'trainers' %}?ordering=-kilometers_walked" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Totals</h3>
       <canvas id="kilometers-chart" height="300"></canvas>
     </div>
@@ -143,7 +143,7 @@
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'trainers' %}?ordering=-battles_won" class="text-center">View More...</a>
+      <a href="{% url 'trainers' %}?ordering=-battles_won" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Totals</h3>
       <canvas id="battles-chart" height="300"></canvas>
     </div>

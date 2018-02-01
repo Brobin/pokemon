@@ -178,14 +178,5 @@ class TrainerList(LoginMixin, ListView):
             if hasattr(self.request.user, 'trainer'):
                 return super().dispatch(request, *args, **kwargs)
             return redirect('trainer-create')
+        messages.warning(self.request, 'Sign in to view this page.')
         return redirect('/')
-
-
-class TrainerReport(TemplateView):
-    template_name = 'trainers/report.html'
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['level_40'] = Trainer.objects.filter(xp__gte=20000000).order_by('-xp')
-        context['trainers'] = Trainer.objects.filter(xp__lt=20000000).order_by('-xp')[:25]
-        return context
