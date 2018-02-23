@@ -33,7 +33,7 @@
     <tbody>
       {% for pokemon in object_list %}
       <tr>
-        <td><img src="{% static pokemon.image %}" height="50"/> {{ pokemon.name }}</td>
+        <td><img src="{{ pokemon.image }}" height="50" alt="{{ pokemon.name }}"/> {{ pokemon.name }}</td>
         <td>{{ pokemon.cp }}</td>
         <td>{% if pokemon.iv_pct %}{{ pokemon.iv_pct|floatformat:1 }}%{% else %}???{% endif %}</td>
         <td class="hidden-xs">{% if pokemon.fast_move and pokemon.charge_move %}{{ pokemon.fast_move }} / {{ pokemon.charge_move }}{% else %}???{% endif %}</td>

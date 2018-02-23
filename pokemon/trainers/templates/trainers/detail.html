@@ -66,7 +66,7 @@
       {% for pokemon in trainer.favorite_pokemon.all %}
         <div class="col-sm-3 col-xs-6">
           <div class="pokemon">
-            <img src="{% static pokemon.image %}"/><br/>
+            <img src="{{ pokemon.image }}" alt="{{ pokemon.name }}"/><br/>
             <span><b>{{ pokemon.cp }}</b>{% if pokemon.iv %} ({{ pokemon.iv|floatformat:1 }}%){% endif %}</span><br/>
             <span>{{ pokemon.fast_move }}</span><br/>
             <span>{{ pokemon.charge_move }}</span>
