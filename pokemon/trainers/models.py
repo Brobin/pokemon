@@ -192,6 +192,9 @@ class FavoritePokemon(models.Model):
 
     @property
     def image(self):
+        number = str(self.number)
+        while len(number) < 3:
+            number = '0' + number
         url = str(self.number) + '-00'
         if self.shiny:
             url += '-shiny'
