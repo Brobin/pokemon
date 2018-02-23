@@ -195,7 +195,7 @@ class FavoritePokemon(models.Model):
         number = str(self.number)
         while len(number) < 3:
             number = '0' + number
-        url = str(self.number) + '-00'
+        url = number + '-00'
         if self.shiny:
             url += '-shiny'
         return 'https://pokemon.gameinfo.io/images/pokemon-go/{0}.png'.format(url)
