@@ -7,7 +7,7 @@ from .views import (
     TrainerCreate,
     TrainerDetail,
     TrainerEdit,
-    TrainerEdit,
+    TrainerList,
     TrainerReport
 )
 
