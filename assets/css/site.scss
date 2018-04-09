@@ -56,3 +56,10 @@ body, html {
   }
 }
 
+.progress {
+  height: 30px;
+  .progress-bar {
+    line-height: 30px;
+    font-size: 14px;
+  }
+}
