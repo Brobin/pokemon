@@ -29,8 +29,8 @@
         </tbody>
       </table>
       <a href="{% url 'trainers' %}" class="text-center">Full Leaderboard...</a>
-      <h3 class="text-center">Team Totals</h3>
-      <canvas id="xp-chart" height="300"></canvas>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.team_xp as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
@@ -53,7 +53,7 @@
       </table>
       <a href="{% url 'trainers' %}?ordering=-pokedex_number" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Players per Team</h3>
-      <canvas id="players-chart" height="300"></canvas>
+      {% with charts.players as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
@@ -75,8 +75,8 @@
         </tbody>
       </table>
       <a href="{% url 'trainers' %}?ordering=-pokemon_caught" class="text-center">Full Leaderboard...</a>
-      <h3 class="text-center">Team Totals</h3>
-      <canvas id="pokemon-chart" height="300"></canvas>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.team_pokemon as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
@@ -98,8 +98,8 @@
         </tbody>
       </table>
       <a href="{% url 'trainers' %}?ordering=-pokestops_spun" class="text-center">Full Leaderboard...</a>
-      <h3 class="text-center">Team Totals</h3>
-      <canvas id="pokestops-chart" height="300"></canvas>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.team_pokestops as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
@@ -121,8 +121,8 @@
         </tbody>
       </table>
       <a href="{% url 'trainers' %}?ordering=-kilometers_walked" class="text-center">Full Leaderboard...</a>
-      <h3 class="text-center">Team Totals</h3>
-      <canvas id="kilometers-chart" height="300"></canvas>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.team_kilometers as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
@@ -144,8 +144,8 @@
         </tbody>
       </table>
       <a href="{% url 'trainers' %}?ordering=-battles_won" class="text-center">Full Leaderboard...</a>
-      <h3 class="text-center">Team Totals</h3>
-      <canvas id="battles-chart" height="300"></canvas>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.team_battles as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
 </div>

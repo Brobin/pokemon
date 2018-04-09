@@ -29,18 +29,20 @@ class StatsView(TemplateView):
         context['spin_leaders'] = Trainer.objects.order_by('-pokestops_spun', '-xp')[:5]
         context['walking_leaders'] = Trainer.objects.order_by('-kilometers_walked', '-xp')[:5]
         context['battle_leaders'] = Trainer.objects.order_by('-battles_won', '-xp')[:5]
-        context['charts'] = self.get_charts()
+        context['charts']= self.get_charts()
+
         return context
 
     def chart_aggregate(self, team):
         return Trainer.objects.filter(team=team).aggregate(
             players=Count('pk'),
-            team_xp=Sum('xp'),
-            team_pokemon=Sum('pokemon_caught'),
-            team_pokestops=Sum('pokestops_spun'),
-            team_kilometers=Sum('kilometers_walked'),
-            team_battles=Sum('battles_won'),
+            team_xp=Avg('xp'),
+            team_pokemon=Avg('pokemon_caught'),
+            team_pokestops=Avg('pokestops_spun'),
+            team_kilometers=Avg('kilometers_walked'),
+            team_battles=Avg('battles_won'),
         )
+
 
     def get_charts(self):
         mystic = self.chart_aggregate(MYSTIC)
@@ -51,17 +53,14 @@ class StatsView(TemplateView):
                       'team_kilometers', 'team_battles']:
             m, v, i = int(mystic[datum]), int(valor[datum]), int(instinct[datum])
             total = m + v + i
+
             charts[datum] = {
-                'labels': [
-                    'Mystic ({0:0.1f}%)'.format(m / total * 100.0),
-                    'Valor ({0:0.1f}%)'.format(v / total * 100.0),
-                    'Instinct ({0:0.1f}%)'.format(i / total * 100.0)
-                ],
-                'datasets': [{
-                    'label': datum,
-                    'data': [m, v, i],
-                    'backgroundColor': ['#337ab7', '#d9534f',  '#f0ad4e'],
-                }]
+                'mystic': m,
+                'valor': v,
+                'instinct': i,
+                'mystic_pct': m / total * 100,
+                'valor_pct': v / total * 100,
+                'instinct_pct': i / total * 100,
             }
         return charts
 
