@@ -47,18 +47,18 @@ class TrainerUpdate(models.Model):
 
 class Trainer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='trainer')
-    username = models.CharField(max_length=64, unique=True)
+    username = models.CharField('Trainer Name', max_length=64, unique=True)
     team = models.IntegerField(choices=TEAMS)
 
     updated_at = models.DateTimeField(blank=True, null=True)
 
-    xp = models.BigIntegerField()
+    xp = models.BigIntegerField('Total XP')
 
-    pokemon_caught = models.IntegerField()
-    pokestops_spun = models.IntegerField()
-    battles_won = models.IntegerField()
-    kilometers_walked = models.FloatField()
-    pokedex_number = models.IntegerField()
+    pokemon_caught = models.IntegerField('Pokemon Caught')
+    pokestops_spun = models.IntegerField('Pokestops Spun')
+    battles_won = models.IntegerField('Battles Won')
+    kilometers_walked = models.FloatField('Kilometers Walked')
+    pokedex_number = models.IntegerField('Pokedex Entries')
 
     __original_xp = None
 
