@@ -34,10 +34,19 @@
           {% with field=form.pokestops_spun type="number" %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
-          {% with field=form.battles_won type="number" %}{% include "forms/field.html" %}{% endwith %}
+          {% with field=form.eggs_hatched type="number" %}{% include "forms/field.html" %}{% endwith %}
         </div>
         <div class="col-sm-3 col-xs-6">
           {% with field=form.kilometers_walked type="number" step="0.1" %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with field=form.battles_won type="number" %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with field=form.berries_fed type="number" %}{% include "forms/field.html" %}{% endwith %}
+        </div>
+        <div class="col-sm-3 col-xs-6">
+          {% with field=form.hours_defended type="number" step="0.1" %}{% include "forms/field.html" %}{% endwith %}
         </div>
       </div>
       {% if pokemon_form %}

@@ -22,6 +22,12 @@ class StatsView(TemplateView):
             avg_kilometers_walked=Avg('kilometers_walked'),
             sum_battles_won=Sum('battles_won'),
             avg_battles_won=Avg('battles_won'),
+            sum_berries_fed=Sum('berries_fed'),
+            avg_berries_fed=Avg('berries_fed'),
+            sum_hours_defended=Sum('hours_defended'),
+            avg_hours_defended=Avg('hours_defended'),
+            sum_eggs_hatched=Sum('eggs_hatched'),
+            avg_eggs_hatched=Avg('eggs_hatched'),
         )
         context['xp_leaders'] = Trainer.objects.order_by('-xp')[:5]
         context['pokedex_leaders'] = Trainer.objects.order_by('-pokedex_number', '-xp')[:5]
@@ -29,29 +35,23 @@ class StatsView(TemplateView):
         context['spin_leaders'] = Trainer.objects.order_by('-pokestops_spun', '-xp')[:5]
         context['walking_leaders'] = Trainer.objects.order_by('-kilometers_walked', '-xp')[:5]
         context['battle_leaders'] = Trainer.objects.order_by('-battles_won', '-xp')[:5]
+        context['egg_leaders'] = Trainer.objects.order_by('-eggs_hatched', '-xp')[:5]
+        context['defender_leaders'] = Trainer.objects.order_by('-hours_defended', '-xp')[:5]
+        context['berry_leaders'] = Trainer.objects.order_by('-berries_fed', '-xp')[:5]
         context['charts']= self.get_charts()
 
         return context
 
-    def chart_aggregate(self, team):
-        return Trainer.objects.filter(team=team).aggregate(
-            players=Count('pk'),
-            team_xp=Avg('xp'),
-            team_pokemon=Avg('pokemon_caught'),
-            team_pokestops=Avg('pokestops_spun'),
-            team_kilometers=Avg('kilometers_walked'),
-            team_battles=Avg('battles_won'),
-        )
-
 
     def get_charts(self):
-        mystic = self.chart_aggregate(MYSTIC)
-        valor = self.chart_aggregate(VALOR)
-        instinct = self.chart_aggregate(INSTINCT)
         charts = {}
-        for datum in ['players', 'team_xp', 'team_pokemon', 'team_pokestops',
-                      'team_kilometers', 'team_battles']:
-            m, v, i = int(mystic[datum]), int(valor[datum]), int(instinct[datum])
+        for datum in ['xp', 'pokemon_caught', 'kilometers_walked', 'pokestops_spun',
+            'battles_won', 'berries_fed', 'eggs_hatched', 'hours_defended']:
+            mystic = Trainer.objects.exclude(**{datum + '__isnull': True}).filter(team=MYSTIC).aggregate(Avg(datum))
+            valor = Trainer.objects.exclude(**{datum + '__isnull': True}).filter(team=VALOR).aggregate(Avg(datum))
+            instinct = Trainer.objects.exclude(**{datum + '__isnull': True}).filter(team=INSTINCT).aggregate(Avg(datum))
+
+            m, v, i = int(mystic[datum+'__avg'] or 0), int(valor[datum+'__avg'] or 0), int(instinct[datum+'__avg'] or 0)
             total = m + v + i
 
             charts[datum] = {
@@ -62,5 +62,19 @@ class StatsView(TemplateView):
                 'valor_pct': v / total * 100,
                 'instinct_pct': i / total * 100,
             }
+
+        mystic = Trainer.objects.filter(team=MYSTIC).count()
+        valor = Trainer.objects.filter(team=VALOR).count()
+        instinct = Trainer.objects.filter(team=INSTINCT).count()
+        total = mystic + valor + instinct
+
+        charts['players'] = {
+            'mystic': mystic,
+            'valor': valor,
+            'instinct': instinct,
+            'mystic_pct': mystic / total * 100,
+            'valor_pct': valor / total * 100,
+            'instinct_pct': instinct / total * 100,
+        }
         return charts
 

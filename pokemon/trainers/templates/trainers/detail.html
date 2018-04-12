@@ -30,16 +30,30 @@
           <span>{{ object.pokemon_caught | intcomma }}</span>
         </div>
         <div class="col-xs-3">
-          <img src="{% static 'img/medals/battle_girl.png' %}"/>
-          <span>{{ object.battles_won | intcomma }}</span>
-        </div>
-        <div class="col-xs-3">
           <img src="{% static 'img/medals/backpacker.png' %}"/>
           <span>{{ object.pokestops_spun | intcomma }}</span>
         </div>
         <div class="col-xs-3">
+          <img src="{% static 'img/medals/breeder.png' %}"/>
+          <span>{% if object.eggs_hatched %}{{ object.eggs_hatched | intcomma }}{% else %}?{% endif %}</span>
+        </div>
+        <div class="col-xs-3">
           <img src="{% static 'img/medals/jogger.png' %}"/>
           <span>{{ object.kilometers_walked | intcomma }}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xs-3">
+          <img src="{% static 'img/medals/battle_girl.png' %}"/>
+          <span>{{ object.battles_won | intcomma }}</span>
+        </div>
+        <div class="col-xs-3">
+          <img src="{% static 'img/medals/berry_master.png' %}"/>
+          <span>{% if object.berries_fed %}{{ object.berries_fed | intcomma }}{% else %}?{% endif %}</span>
+        </div>
+        <div class="col-xs-3">
+          <img src="{% static 'img/medals/gym_leader.png' %}"/>
+          <span>{% if object.hours_defended %}{{ object.hours_defended | intcomma }}{% else %}?{% endif %}</span>
         </div>
       </div>
       <canvas id="trainer-radar" height="300"></canvas>

@@ -14,7 +14,8 @@ class TrainerForm(forms.ModelForm):
     class Meta:
         model = Trainer
         fields = ['username', 'team', 'xp', 'pokemon_caught', 'pokestops_spun',
-                  'battles_won', 'kilometers_walked', 'pokedex_number']
+                  'battles_won', 'kilometers_walked', 'pokedex_number',
+                  'berries_fed', 'hours_defended', 'eggs_hatched']
 
 
 PokemonForm = inlineformset_factory(

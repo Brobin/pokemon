@@ -163,9 +163,12 @@ class TrainerList(LoginMixin, ListView):
             ('-xp', 'XP'),
             ('-pokemon_caught', 'Pokemon Caught'),
             ('-pokedex_number', 'Pokedex Entries'),
-            ('-battles_won', 'Battles Won'),
             ('-pokestops_spun', 'Pokestops Spun'),
+            ('-eggs_hatched', 'Eggs Hatched'),
             ('-kilometers_walked', 'Kilometers Walked'),
+            ('-battles_won', 'Battles Won'),
+            ('-berries_fed', 'Berries Fed'),
+            ('-hours_defended', 'Hours Defended'),
         ]
         return context
 

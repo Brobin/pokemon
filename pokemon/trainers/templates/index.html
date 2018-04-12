@@ -22,7 +22,7 @@
           {% for trainer in xp_leaders %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.xp | intcomma }}</td>
           </tr>
           {% endfor %}
@@ -30,7 +30,7 @@
       </table>
       <a href="{% url 'trainers' %}" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Averages</h3>
-      {% with charts.team_xp as stat %}{% include "_team_compare.html" %}{% endwith %}
+      {% with charts.xp as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
@@ -45,7 +45,7 @@
           {% for trainer in pokedex_leaders %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.pokedex_number }}</td>
           </tr>
           {% endfor %}
@@ -68,7 +68,7 @@
           {% for trainer in catch_leaders %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.pokemon_caught | intcomma }}</td>
           </tr>
           {% endfor %}
@@ -76,9 +76,80 @@
       </table>
       <a href="{% url 'trainers' %}?ordering=-pokemon_caught" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Averages</h3>
-      {% with charts.team_pokemon as stat %}{% include "_team_compare.html" %}{% endwith %}
+      {% with charts.pokemon_caught as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
+
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Battles Won</h5>
+        <h1>{{ stats.sum_battles_won | intcomma }}</h1>
+        <p>{{ stats.avg_battles_won|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in battle_leaders %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td>{{ trainer.battles_won | intcomma }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainers' %}?ordering=-battles_won" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.battles_won as stat %}{% include "_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Hours Defended</h5>
+        <h1>{{ stats.sum_hours_defended| intcomma }}</h1>
+        <p>{{ stats.avg_hours_defended|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in defender_leaders %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td>{% if trainer.hours_defended %}{{ trainer.hours_defended | intcomma }}{% else %}?{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainers' %}?ordering=-hours_defended" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.hours_defended as stat %}{% include "_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <div class="text-center">
+        <h5>Berries Fed</h5>
+        <h1>{{ stats.sum_berries_fed | intcomma }}</h1>
+        <p>{{ stats.avg_berries_fed|floatformat:0 | intcomma }} Average</p>
+      </div>
+      <table class="table table-hover" style="text-align:none">
+        <tbody>
+          {% for trainer in berry_leaders %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td>{% if trainer.berries_fed %}{{ trainer.berries_fed | intcomma }}{% else %}?{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <a href="{% url 'trainers' %}?ordering=-berries_fed" class="text-center">Full Leaderboard...</a>
+      <h3 class="text-center">Team Averages</h3>
+      {% with charts.berries_fed as stat %}{% include "_team_compare.html" %}{% endwith %}
+    </div>
+  </div>
+
   <div class="col-md-4 col-sm-6">
     <div class="well">
       <div class="text-center">
@@ -91,7 +162,7 @@
           {% for trainer in spin_leaders %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.pokestops_spun | intcomma }}</td>
           </tr>
           {% endfor %}
@@ -99,7 +170,7 @@
       </table>
       <a href="{% url 'trainers' %}?ordering=-pokestops_spun" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Averages</h3>
-      {% with charts.team_pokestops as stat %}{% include "_team_compare.html" %}{% endwith %}
+      {% with charts.pokestops_spun as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
@@ -114,7 +185,7 @@
           {% for trainer in walking_leaders %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
             <td>{{ trainer.kilometers_walked | intcomma }}</td>
           </tr>
           {% endfor %}
@@ -122,30 +193,30 @@
       </table>
       <a href="{% url 'trainers' %}?ordering=-kilometers_walked" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Averages</h3>
-      {% with charts.team_kilometers as stat %}{% include "_team_compare.html" %}{% endwith %}
+      {% with charts.kilometers_walked as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
   <div class="col-md-4 col-sm-6">
     <div class="well">
       <div class="text-center">
-        <h5>Battles Won</h5>
-        <h1>{{ stats.sum_battles_won | intcomma }}</h1>
-        <p>{{ stats.avg_battles_won|floatformat:0 | intcomma }} Average</p>
+        <h5>Eggs Hatched</h5>
+        <h1>{{ stats.sum_eggs_hatched | intcomma }}</h1>
+        <p>{{ stats.avg_eggs_hatched|floatformat:0 | intcomma }} Average</p>
       </div>
       <table class="table table-hover" style="text-align:none">
         <tbody>
-          {% for trainer in battle_leaders %}
+          {% for trainer in egg_leaders %}
           <tr>
             <td>{{ forloop.counter }}</td>
-            <td><img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
-            <td>{{ trainer.battles_won | intcomma }}</td>
+            <td><img src="{% static trainer.team_image %}" height="30"/> <a href="{% url 'trainer-detail' username=trainer.username %}">&nbsp;{{ trainer.username }}</a></td>
+            <td>{% if trainer.eggs_hatched %}{{ trainer.eggs_hatched | intcomma }}{% else %}?{% endif %}</td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'trainers' %}?ordering=-battles_won" class="text-center">Full Leaderboard...</a>
+      <a href="{% url 'trainers' %}?ordering=-eggs_hatched" class="text-center">Full Leaderboard...</a>
       <h3 class="text-center">Team Averages</h3>
-      {% with charts.team_battles as stat %}{% include "_team_compare.html" %}{% endwith %}
+      {% with charts.eggs_hatched as stat %}{% include "_team_compare.html" %}{% endwith %}
     </div>
   </div>
 </div>

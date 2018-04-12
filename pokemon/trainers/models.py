@@ -43,6 +43,9 @@ class TrainerUpdate(models.Model):
     battles_won = models.IntegerField()
     kilometers_walked = models.FloatField()
     pokedex_number = models.IntegerField()
+    hours_defended = models.IntegerField('Hours Defended', blank=True, null=True)
+    berries_fed = models.IntegerField('Berries Fed', blank=True, null=True)
+    eggs_hatched = models.IntegerField('Eggs Hatched', blank=True, null=True)
 
 
 class Trainer(models.Model):
@@ -59,6 +62,10 @@ class Trainer(models.Model):
     battles_won = models.IntegerField('Battles Won')
     kilometers_walked = models.FloatField('Kilometers Walked')
     pokedex_number = models.IntegerField('Pokedex Entries')
+
+    hours_defended = models.IntegerField('Hours Defended', blank=True, null=True)
+    berries_fed = models.IntegerField('Berries Fed', blank=True, null=True)
+    eggs_hatched = models.IntegerField('Eggs Hatched', blank=True, null=True)
 
     __original_xp = None
 
@@ -120,6 +127,10 @@ class Trainer(models.Model):
     def team_name(self):
         return TEAMS[self.team - 1][1]
 
+    @property
+    def team_image(self):
+        return 'img/{0}.png'.format(self.team_name.lower())
+
     def get_absolute_url(self):
         return reverse('trainer-detail', kwargs={'username': self.username})
 
@@ -138,6 +149,9 @@ class Trainer(models.Model):
                 battles_won=self.battles_won,
                 kilometers_walked=self.kilometers_walked,
                 pokedex_number=self.pokedex_number,
+                berries_fed=self.berries_fed,
+                hours_defended=self.hours_defended,
+                eggs_hatched=self.eggs_hatched,
             )
         return super().save(*args, **kwargs)
 
