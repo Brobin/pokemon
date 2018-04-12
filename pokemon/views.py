@@ -58,9 +58,9 @@ class StatsView(TemplateView):
                 'mystic': m,
                 'valor': v,
                 'instinct': i,
-                'mystic_pct': m / total * 100,
-                'valor_pct': v / total * 100,
-                'instinct_pct': i / total * 100,
+                'mystic_pct': 0 if total == 0 else m / total * 100,
+                'valor_pct': 0 if total == 0 else v / total * 100,
+                'instinct_pct': 0 if total == 0 else i / total * 100,
             }
 
         mystic = Trainer.objects.filter(team=MYSTIC).count()
@@ -72,9 +72,9 @@ class StatsView(TemplateView):
             'mystic': mystic,
             'valor': valor,
             'instinct': instinct,
-            'mystic_pct': mystic / total * 100,
-            'valor_pct': valor / total * 100,
-            'instinct_pct': instinct / total * 100,
+            'mystic_pct': 0 if total == 0 else mystic / total * 100,
+            'valor_pct': 0 if total == 0 else valor / total * 100,
+            'instinct_pct': 0 if total == 0 else instinct / total * 100,
         }
         return charts
 
