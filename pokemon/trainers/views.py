@@ -145,6 +145,9 @@ class TrainerDetail(LoginMixin, DetailView):
         context['pn'] = Trainer.objects.filter(pokedex_number__lte=t.pokedex_number).count() / trainers
         context['kw'] = Trainer.objects.filter(kilometers_walked__lte=t.kilometers_walked).count() / trainers
         context['bw'] = Trainer.objects.filter(battles_won__lte=t.battles_won).count() / trainers
+        context['bf'] = 0 if not t.berries_fed else Trainer.objects.filter(berries_fed__lte=t.berries_fed).count() / trainers
+        context['eh'] = 0 if not t.eggs_hatched else Trainer.objects.filter(eggs_hatched__lte=t.eggs_hatched).count() / trainers
+        context['hd'] = 0 if not t.hours_defended else Trainer.objects.filter(hours_defended__lte=t.hours_defended).count() / trainers
         context['updates'] = t.updates.order_by('created_at')
         return context
 

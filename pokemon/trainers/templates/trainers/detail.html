@@ -301,7 +301,10 @@ $(document).ready(function(){
     var radar = new Chart($("#trainer-radar"), {
       type: 'radar',
       data: {
-        labels: ['Experience', 'Pokemon Caught', 'Pokestops Spun', 'Pokedex Entries', 'Kilometers Walked', 'Battles Won'],
+        labels: [
+          'Experience', 'Pokemon Caught', 'Pokestops Spun', 'Pokedex Entries', 'Kilometers Walked',
+          'Battles Won', 'Eggs Hatched', 'Hours Defended', 'Berries Fed'
+        ],
         datasets: [{
           label: "{{ object.username }}",
           scaleOverride: true,
@@ -315,6 +318,9 @@ $(document).ready(function(){
             ({{ pn }} * 100).toFixed(0),
             ({{ kw }} * 100).toFixed(0),
             ({{ bw }} * 100).toFixed(0),
+            ({{ eh }} * 100).toFixed(0),
+            ({{ hd }} * 100).toFixed(0),
+            ({{ bf }} * 100).toFixed(0),
           ],
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgb(54, 162, 235)",
