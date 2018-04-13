@@ -1,4 +1,5 @@
 from django.contrib import admin, messages
+from django.forms import BaseInlineFormSet
 from django.shortcuts import redirect
 
 from .models import (
@@ -26,8 +27,17 @@ class TrainerBadgeInline(admin.TabularInline):
     classes = ['collapse']
 
 
+class TrainerUpdateFormset(BaseInlineFormSet):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        instance = kwargs["instance"]
+        self.queryset = TrainerUpdate.objects.order_by('-created_at')[:10]
+
+
 class TrainerUpdateInline(admin.TabularInline):
     model = TrainerUpdate
+    formset = TrainerUpdateFormset
     extra = 0
     raw_id_fields = ['trainer']
     classes = ['collapse']
