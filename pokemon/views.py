@@ -59,6 +59,7 @@ class StatsView(TemplateView):
         mystic = self.chart_aggregate(MYSTIC)
         valor = self.chart_aggregate(VALOR)
         instinct = self.chart_aggregate(INSTINCT)
+
         charts = {}
         for datum in ['players', 'xp', 'pokemon_caught', 'pokestops_spun',
                       'kilometers_walked', 'battles_won', 'eggs_hatched', 
@@ -66,9 +67,9 @@ class StatsView(TemplateView):
             m, v, i = int(mystic[datum]), int(valor[datum]), int(instinct[datum])
             total = m + v + i
             charts[datum] = {
-                'mystic': m,
-                'valor': v,
-                'instinct': i,
+                'mystic': int(m / mystic['players']),
+                'valor': int(v / valor['players']),
+                'instinct': int(i / instinct['players']),
                 'mystic_pct': m / total * 100,
                 'valor_pct': v / total * 100,
                 'instinct_pct': i / total * 100,
