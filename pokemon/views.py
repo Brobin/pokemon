@@ -42,39 +42,35 @@ class StatsView(TemplateView):
 
         return context
 
+    def chart_aggregate(self, team):
+        return Trainer.objects.filter(team=team).aggregate(
+            players=Count('pk'),
+            xp=Sum('xp'),
+            pokemon_caught=Sum('pokemon_caught'),
+            pokestops_spun=Sum('pokestops_spun'),
+            kilometers_walked=Sum('kilometers_walked'),
+            battles_won=Sum('battles_won'),
+            eggs_hatched=Sum('eggs_hatched'),
+            hours_defended=Sum('hours_defended'),
+            berries_fed=Sum('berries_fed'),
+        )
 
     def get_charts(self):
+        mystic = self.chart_aggregate(MYSTIC)
+        valor = self.chart_aggregate(VALOR)
+        instinct = self.chart_aggregate(INSTINCT)
         charts = {}
-        for datum in ['xp', 'pokemon_caught', 'kilometers_walked', 'pokestops_spun',
-            'battles_won', 'berries_fed', 'eggs_hatched', 'hours_defended']:
-            mystic = Trainer.objects.exclude(**{datum + '__isnull': True}).filter(team=MYSTIC).aggregate(Avg(datum))
-            valor = Trainer.objects.exclude(**{datum + '__isnull': True}).filter(team=VALOR).aggregate(Avg(datum))
-            instinct = Trainer.objects.exclude(**{datum + '__isnull': True}).filter(team=INSTINCT).aggregate(Avg(datum))
-
-            m, v, i = int(mystic[datum+'__avg'] or 0), int(valor[datum+'__avg'] or 0), int(instinct[datum+'__avg'] or 0)
+        for datum in ['players', 'xp', 'pokemon_caught', 'pokestops_spun',
+                      'kilometers_walked', 'battles_won', 'eggs_hatched', 
+                      'hours_defended', 'berries_fed']:
+            m, v, i = int(mystic[datum]), int(valor[datum]), int(instinct[datum])
             total = m + v + i
-
             charts[datum] = {
                 'mystic': m,
                 'valor': v,
                 'instinct': i,
-                'mystic_pct': 0 if total == 0 else m / total * 100,
-                'valor_pct': 0 if total == 0 else v / total * 100,
-                'instinct_pct': 0 if total == 0 else i / total * 100,
+                'mystic_pct': m / total * 100,
+                'valor_pct': v / total * 100,
+                'instinct_pct': i / total * 100,
             }
-
-        mystic = Trainer.objects.filter(team=MYSTIC).count()
-        valor = Trainer.objects.filter(team=VALOR).count()
-        instinct = Trainer.objects.filter(team=INSTINCT).count()
-        total = mystic + valor + instinct
-
-        charts['players'] = {
-            'mystic': mystic,
-            'valor': valor,
-            'instinct': instinct,
-            'mystic_pct': 0 if total == 0 else mystic / total * 100,
-            'valor_pct': 0 if total == 0 else valor / total * 100,
-            'instinct_pct': 0 if total == 0 else instinct / total * 100,
-        }
         return charts
-

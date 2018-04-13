@@ -43,9 +43,9 @@ class TrainerUpdate(models.Model):
     battles_won = models.IntegerField()
     kilometers_walked = models.FloatField()
     pokedex_number = models.IntegerField()
-    hours_defended = models.IntegerField('Hours Defended', blank=True, null=True)
-    berries_fed = models.IntegerField('Berries Fed', blank=True, null=True)
-    eggs_hatched = models.IntegerField('Eggs Hatched', blank=True, null=True)
+    hours_defended = models.IntegerField('Hours Defended', default=0)
+    berries_fed = models.IntegerField('Berries Fed', default=0)
+    eggs_hatched = models.IntegerField('Eggs Hatched', default=0)
 
 
 class Trainer(models.Model):
@@ -63,9 +63,9 @@ class Trainer(models.Model):
     kilometers_walked = models.FloatField('Kilometers Walked')
     pokedex_number = models.IntegerField('Pokedex Entries')
 
-    hours_defended = models.IntegerField('Hours Defended', blank=True, null=True)
-    berries_fed = models.IntegerField('Berries Fed', blank=True, null=True)
-    eggs_hatched = models.IntegerField('Eggs Hatched', blank=True, null=True)
+    hours_defended = models.IntegerField('Hours Defended', default=0)
+    berries_fed = models.IntegerField('Berries Fed', default=0)
+    eggs_hatched = models.IntegerField('Eggs Hatched', default=0)
 
     __original_xp = None
 

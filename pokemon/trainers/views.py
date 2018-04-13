@@ -141,32 +141,19 @@ class TrainerDetail(LoginMixin, DetailView):
         t = context['object']
         # Get all the percentiles for the radar chart
         context['xp'] = Trainer.objects.filter(xp__lte=t.xp).count() / trainers
-        context['pc'] = Trainer.objects.filter(pokemon_caught__lte=t.pokemon_caught).count() / trainers
-        context['ps'] = Trainer.objects.filter(pokestops_spun__lte=t.pokestops_spun).count() / trainers
-        context['pn'] = Trainer.objects.filter(pokedex_number__lte=t.pokedex_number).count() / trainers
-        context['kw'] = Trainer.objects.filter(kilometers_walked__lte=t.kilometers_walked).count() / trainers
-        context['bw'] = Trainer.objects.filter(battles_won__lte=t.battles_won).count() / trainers
-        self.add_nullable_stats_radar(context)
+        context['pc'] = Trainer.objects.filter(pokemon_caught__lt=t.pokemon_caught).count() / trainers
+        context['ps'] = Trainer.objects.filter(pokestops_spun__lt=t.pokestops_spun).count() / trainers
+        context['pn'] = Trainer.objects.filter(pokedex_number__lt=t.pokedex_number).count() / trainers
+        context['kw'] = Trainer.objects.filter(kilometers_walked__lt=t.kilometers_walked).count() / trainers
+        context['bw'] = Trainer.objects.filter(battles_won__lt=t.battles_won).count() / trainers
+        context['bf'] = Trainer.objects.filter(berries_fed__lt=t.berries_fed).count() / trainers
+        context['eh'] = Trainer.objects.filter(eggs_hatched__lt=t.eggs_hatched).count() / trainers
+        context['hd'] = Trainer.objects.filter(hours_defended__lt=t.hours_defended).count() / trainers
         context['updates'] = t.updates.order_by('created_at')
         return context
 
     def get_object(self):
         return get_object_or_404(Trainer, username__iexact=self.kwargs['username'])
-
-    def add_nullable_stats_radar(self, context):
-        t = context['object']
-        context['bf'], context['eh'], context['hd'] = 0, 0, 0
-        if t.berries_fed:
-            total = Trainer.objects.exclude(berries_fed__isnull=True).count()
-            context['bf'] = Trainer.objects.filter(berries_fed__lte=t.berries_fed).count() / total
-        if t.eggs_hatched:
-            total = Trainer.objects.exclude(eggs_hatched__isnull=True).count()
-            context['eh'] = Trainer.objects.filter(eggs_hatched__lte=t.eggs_hatched).count() / total
-        if t.hours_defended:
-            total = Trainer.objects.exclude(hours_defended__isnull=True).count()
-            context['hd'] = Trainer.objects.filter(hours_defended__lte=t.hours_defended).count() / total
-        return
-
 
 
 class TrainerList(LoginMixin, ListView):
