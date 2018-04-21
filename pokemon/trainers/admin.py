@@ -32,7 +32,7 @@ class TrainerUpdateFormset(BaseInlineFormSet):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         instance = kwargs["instance"]
-        self.queryset = TrainerUpdate.objects.order_by('-created_at')[:10]
+        self.queryset = TrainerUpdate.objects.filter(trainer=instance).order_by('-created_at')[:10]
 
 
 class TrainerUpdateInline(admin.TabularInline):
