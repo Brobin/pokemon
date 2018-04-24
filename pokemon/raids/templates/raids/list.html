@@ -5,7 +5,7 @@
 {% block title %}Raid Leaderboard{% endblock %}
 
 {% block content %}
-<h1>Raid Leaderboard <a href="{% url 'raid-record-create' %}" class="btn btn-primary btn-md">Submit new Time</a></h1>
+<h1>Raid Leaderboard {% if user.is_authenticated %}<a href="{% url 'raid-record-create' %}" class="btn btn-primary btn-md">Submit new Time</a>{% endif %}</h1>
 
 <div class="well">
   <table class="table table-striped">

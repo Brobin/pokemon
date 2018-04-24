@@ -7,8 +7,9 @@ from django.views.generic import TemplateView
 from .forms import RaidRecordForm
 from .models import Raid, RaidRecord
 
+from ..trainers.mixins import LoginMixin
 
-class RaidRecordCreate(CreateView):
+class RaidRecordCreate(LoginMixin, CreateView):
     template_name = 'raids/create.html'
     model = RaidRecord
     form_class = RaidRecordForm
