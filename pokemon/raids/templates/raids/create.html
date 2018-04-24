@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}Raid Leaderboard Submission{% endblock %}
+
+{% block content %}
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+    <h1 class="text-center">Raid Leaderboard Submission</h1>
+    <hr/>
+    <div class="well">
+      <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <label>What raid did you complete?</label>
+        {{ form.raid }}
+        <br/>
+        <label>When did you complete it?</label>
+        <input type="date" name="date" class="form-control">
+        <br/>
+        <label>How many seconds were remaingin when you finished it?</label>
+        {{ form.time_remaining }}
+        <br/>
+        <label>Please provide a screenshot of your lineup</label>
+        {{ form.lineup_screenshot }}
+        <br/>
+        <label>Please provide a screenshot of the final timer</label>
+        {{ form.finish_screenshot }}
+        <hr/>
+        <input type="submit" value="Submit" class="btn btn-primary btn-md"/>
+      </form>
+  </div>
+</div>
+
+{% endblock %}

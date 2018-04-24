@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% load staticfiles trainer_tags %}
+
+{% block title %}Raid Leaderboard{% endblock %}
+
+{% block content %}
+<h1>Raid Leaderboard <a href="{% url 'raid-record-create' %}" class="btn btn-primary btn-md">Submit new Time</a></h1>
+
+<div class="well">
+  <table class="table table-striped">
+    <thead>
+      <th>Boss</th>
+      <th>Tier</th>
+      <th>Leader</th>
+      <th>Time Remaining</th>
+      <th>Date</th>
+    </thead>
+    <tbody>
+      {% for raid in raids %}
+      <tr>
+        <td><a href="{{ raid.url }}"><img src="{{ raid.image }}" height="45" style="margin-top:-10px;margin-bottom:-5px;"/> {{ raid }}</a></td>
+        <td>{% for x in raid.tier|times %}<img src="{% static 'img/raid_boss.png' %}"/>{% endfor %}</td>
+        {% with raid.leader as leader %}
+        <td>{% if leader %}<img src="{% static leader.trainer.team_image %}" height="20"/> {{ leader.trainer.username }}{% else %}???{% endif %}</td>
+        <td>{% if leader %}{{ leader.time_remaining }} seconds{% else %}???{% endif %}</td>
+        <td>{% if leader %}{{ leader.date }}{% else %}???{% endif %}</td>
+        {% endwith %}
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

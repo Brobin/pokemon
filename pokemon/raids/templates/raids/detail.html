@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% load staticfiles trainer_tags %}
+
+{% block title %}{{ raid }} Raid Leaderboard{% endblock %}
+
+{% block content %}
+<a href="{% url 'raids' %}">Back to all Raids</a>
+<hr/>
+<div class="row">
+  <div class="col-sm-3">
+    <div class="well text-center">
+      <h1>{{ raid }}</h1>
+      <img src="{{ raid.image }}" style="max-width:100%"/>
+      <div class="text-center">
+        {% for x in raid.tier|times %}<img src="{% static 'img/raid_boss.png' %}"/>{% endfor %}</td>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-9">
+    <div class="well">
+      <table class="table table-striped">
+        <thead>
+          <th>#</th>
+          <th>Trainer</th>
+          <th>Time Remaining</th>
+          <th>Date</th>
+          <th>Screenshots</th>
+        </thead>
+        <tbody>
+          {% for leader in raid.leaders %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{% if leader %}<img src="{% static leader.trainer.team_image %}" height="20"/>&nbsp;<a href="{{ leader.trainer.url }}">{{ leader.trainer.username }}</a>{% else %}???{% endif %}</td>
+            <td>{% if leader %}{{ leader.time_remaining }} seconds{% else %}???{% endif %}</td>
+            <td>{% if leader %}{{ leader.date }}{% else %}???{% endif %}</td>
+            <td><a href="{{ leader.lineup_screenshot.url }}" target="_blank">Lineup</a> | <a href="{{ leader.finish_screenshot.url }}" target="_blank">Finish</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

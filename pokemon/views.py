@@ -63,8 +63,10 @@ class StatsView(TemplateView):
         for datum in ['xp', 'pokemon_caught', 'pokestops_spun',
                       'kilometers_walked', 'battles_won', 'eggs_hatched', 
                       'hours_defended', 'berries_fed']:
-            m, v, i = int(mystic[datum]), int(valor[datum]), int(instinct[datum])
+            m, v, i = int(mystic[datum] or 0), int(valor[datum] or 0), int(instinct[datum] or 0)
             total = m + v + i
+            if total == 0 or m == 0 or v == 0 or i == 0:
+                return []
             charts[datum] = {
                 'mystic': int(m / mystic['players']),
                 'valor': int(v / valor['players']),

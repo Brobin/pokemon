@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^auth/', include('allauth.urls')),
     url(r'^faq/', include('pokemon.faq.urls')),
     url(r'^gyms/', include('pokemon.gyms.urls')),
+    url(r'^raids/', include('pokemon.raids.urls')),
     url(r'^trainers/', include('pokemon.trainers.urls')),
     url(r'^legal/$', TemplateView.as_view(template_name='legal.html'), name='legal'),
     url(r'^404/$', TemplateView.as_view(template_name='404.html'), name='404'),
