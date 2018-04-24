@@ -34,7 +34,7 @@
             <td>{% if leader %}<img src="{% static leader.trainer.team_image %}" height="20"/>&nbsp;<a href="{{ leader.trainer.url }}">{{ leader.trainer.username }}</a>{% else %}???{% endif %}</td>
             <td>{% if leader %}{{ leader.time_remaining }} seconds{% else %}???{% endif %}</td>
             <td>{% if leader %}{{ leader.date }}{% else %}???{% endif %}</td>
-            <td><a href="{{ leader.lineup_screenshot.url }}" target="_blank">Lineup</a> | <a href="{{ leader.finish_screenshot.url }}" target="_blank">Finish</a></td>
+            <td>{% if leader.lineup_screenshot %}<a href="{{ leader.lineup_screenshot.url }}" target="_blank">Lineup</a>{%endif %}&nbsp;{% if leader.finish_screenshot %}<a href="{{ leader.finish_screenshot.url }}" target="_blank">Finish</a>{% endif %}</td>
           </tr>
           {% endfor %}
         </tbody>

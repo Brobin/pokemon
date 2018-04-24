@@ -56,8 +56,8 @@ class RaidRecord(models.Model):
     trainer = models.ForeignKey(Trainer, related_name='raid_records')
 
     time_remaining = models.IntegerField()
-    lineup_screenshot = models.ImageField(upload_to='raids')
-    finish_screenshot = models.ImageField(upload_to='raids')
+    lineup_screenshot = models.ImageField(upload_to='raids', blank=True, null=True)
+    finish_screenshot = models.ImageField(upload_to='raids', blank=True, null=True)
     date = models.DateField()
 
     verified = models.BooleanField(default=True)

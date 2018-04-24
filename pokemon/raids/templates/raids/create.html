@@ -10,6 +10,7 @@
     <hr/>
     <div class="well">
       <form method="post" enctype="multipart/form-data">
+        <h3>Raid  Info</h3>
         {% csrf_token %}
         <label>What raid did you complete?</label>
         {{ form.raid }}
@@ -19,12 +20,13 @@
         <br/>
         <label>How many seconds were remaingin when you finished it?</label>
         {{ form.time_remaining }}
-        <br/>
-        <label>Please provide a screenshot of your lineup</label>
+        <hr/>
+        <h3>Screenshots</h3>
+        <p><b>Note:</b> Screenshots are optional, but highly encouraged. If your submission is a new record and you don't provide a screenshot, it maybe removed. The final timer screenshot must either a) not have a run button, or b) have the purple confetti</p>
+        <label>Lineup/Lobby</label>
         {{ form.lineup_screenshot }}
         <br/>
-        <label>Please provide a screenshot of the final timer</label>
-        <p>Accepted screenshots will have the purple confetti, or the run button will be gone.</p>
+        <label>Final Timer</label>
         {{ form.finish_screenshot }}
         <hr/>
         <input type="submit" value="Submit" class="btn btn-primary btn-md"/>
