@@ -5,14 +5,13 @@ from django.db import models
 from django.urls import reverse
 from django.utils import timezone
 
-from .constants import POKEMON
+from .constants import POKEMON, POKEMON_CHOICES
 
 
 log = logging.getLogger(__name__)
 
 
 IV = [(x, str(x)) for x in range(0, 16)]
-NUMBER = ((int(name.split(' -')[0]), name) for x, name in enumerate(POKEMON))
 
 MYSTIC = 1
 VALOR = 2
@@ -192,7 +191,7 @@ class BadgeApplication(models.Model):
 class FavoritePokemon(models.Model):
     trainer = models.ForeignKey(Trainer, related_name='favorite_pokemon')
 
-    number = models.IntegerField(choices=NUMBER)
+    number = models.IntegerField(choices=POKEMON_CHOICES)
     cp = models.IntegerField()
 
     shiny = models.BooleanField(default=False)
@@ -222,9 +221,7 @@ class FavoritePokemon(models.Model):
 
     @property
     def name(self):
-        for p in POKEMON:
-            if str(self.number) + ' -' in p:
-                return p.split(' - ')[1]
+        return POKEMON[self.number]
 
     def __str__(self):
         return '{0}\'s {1} CP {2}'.format(

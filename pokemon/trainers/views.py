@@ -150,6 +150,7 @@ class TrainerDetail(LoginMixin, DetailView):
         context['eh'] = Trainer.objects.filter(eggs_hatched__lt=t.eggs_hatched).count() / trainers
         context['hd'] = Trainer.objects.filter(hours_defended__lt=t.hours_defended).count() / trainers
         context['updates'] = t.updates.order_by('created_at')
+        context['solos'] = len(set(list(t.raid_records.values_list('raid', flat=True))))
         return context
 
     def get_object(self):

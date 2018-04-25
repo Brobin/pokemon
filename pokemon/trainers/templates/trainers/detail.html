@@ -23,6 +23,7 @@
       <h3>Level {{ object.level }} <img src="{% if trainer.team == 1 %}{% static 'img/mystic.png' %}{% elif trainer.team == 2 %}{% static 'img/valor.png' %}{% else %}{% static 'img/instinct.png' %}{% endif %}" height="30"/></h3>
       <h5>{{ object.xp | intcomma }} XP</h5>
       <h5>{{ object.pokedex_number }} Species Caught</h5>
+      <h5>{{ solos }} Solo Raid{{ solos|pluralize }}</h5>
       <hr/>
       <div class="row">
         <div class="col-xs-3">
