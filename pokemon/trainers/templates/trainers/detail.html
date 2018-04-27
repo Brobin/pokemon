@@ -57,7 +57,7 @@
           <span>{% if object.hours_defended %}{{ object.hours_defended | intcomma }}{% else %}?{% endif %}</span>
         </div>
       </div>
-      <canvas id="trainer-radar" height="300"></canvas>
+      <canvas id="trainer-radar" height="150"></canvas>
       <hr/>
       <h2>Badges {% if user == object.user %} <a href="{% url 'badge-application' %}" class="btn btn-lg btn-primary">Apply for a Badge</a>{% endif %}</h2>
       <hr/>
@@ -105,19 +105,28 @@
       <hr/>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-xp" height="300"></canvas>
+          <canvas id="trainer-xp" height="150"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-catches" height="300"></canvas>
+          <canvas id="trainer-catches" height="150"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-spins" height="300"></canvas>
+          <canvas id="trainer-spins" height="150"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-battles" height="300"></canvas>
+          <canvas id="trainer-battles" height="150"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-kms" height="300"></canvas>
+          <canvas id="berries" height="150"></canvas>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="defending" height="150"></canvas>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="trainer-kms" height="150"></canvas>
+        </div>
+        <div class="col-md-6 col-sm-12">
+          <canvas id="eggs-hatched" height="150"></canvas>
         </div>
       </div>
     </div>
@@ -289,6 +298,99 @@ $(document).ready(function(){
         title: {
           display: true,
           text: "KMs Walked",
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          intersect: false
+        }
+      }
+    });
+
+    new Chart($('#berries'), {
+      type: 'LineWithLine',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "Berries Fed",
+          data: [{% for u in updates %}{{ u.berries_fed }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "Berries Fed",
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          intersect: false
+        }
+      }
+    });
+
+    new Chart($('#defending'), {
+      type: 'LineWithLine',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "Hours Defended",
+          data: [{% for u in updates %}{{ u.hours_defended }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "Hours Defended",
+        },
+        legend: {
+          display: false
+        },
+        tooltips: {
+          intersect: false
+        }
+      }
+    });
+
+    new Chart($('#eggs-hatched'), {
+      type: 'LineWithLine',
+      data: {
+        labels: labels,
+        datasets: [{
+          lineTension: 0,
+          label: "Eggs Hatched",
+          data: [{% for u in updates %}{{ u.eggs_hatched }},{% endfor %}],
+          backgroundColor: "rgba(54, 162, 235, 0.2)",
+          borderColor: "rgb(54, 162, 235)",
+          pointBackgroundColor: "rgb(54, 162, 235)",
+          pointBorderColor:" #fff",
+          pointHoverBackgroundColor: "#fff",
+          pointHoverBorderColor: "rgb(54, 162, 235)"
+        }]
+      },
+      options: {
+        scales: scales,
+        title: {
+          display: true,
+          text: "Eggs Hatched",
         },
         legend: {
           display: false
