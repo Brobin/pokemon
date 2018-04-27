@@ -57,7 +57,7 @@
           <span>{% if object.hours_defended %}{{ object.hours_defended | intcomma }}{% else %}?{% endif %}</span>
         </div>
       </div>
-      <canvas id="trainer-radar" height="150"></canvas>
+      <canvas id="trainer-radar" height="300"></canvas>
       <hr/>
       <h2>Badges {% if user == object.user %} <a href="{% url 'badge-application' %}" class="btn btn-lg btn-primary">Apply for a Badge</a>{% endif %}</h2>
       <hr/>
@@ -105,28 +105,28 @@
       <hr/>
       <div class="row">
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-xp" height="150"></canvas>
+          <canvas id="trainer-xp" height="200"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-catches" height="150"></canvas>
+          <canvas id="trainer-catches" height="200"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-spins" height="150"></canvas>
+          <canvas id="trainer-spins" height="200"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-battles" height="150"></canvas>
+          <canvas id="trainer-battles" height="200"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="berries" height="150"></canvas>
+          <canvas id="berries" height="200"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="defending" height="150"></canvas>
+          <canvas id="defending" height="200"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="trainer-kms" height="150"></canvas>
+          <canvas id="trainer-kms" height="200"></canvas>
         </div>
         <div class="col-md-6 col-sm-12">
-          <canvas id="eggs-hatched" height="150"></canvas>
+          <canvas id="eggs-hatched" height="200"></canvas>
         </div>
       </div>
     </div>
