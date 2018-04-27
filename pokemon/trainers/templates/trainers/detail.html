@@ -315,7 +315,7 @@ $(document).ready(function(){
         datasets: [{
           lineTension: 0,
           label: "Berries Fed",
-          data: [{% for u in updates %}{{ u.berries_fed }},{% endfor %}],
+          data: [{% for u in updates %}{% if u.berries_fed %}{{ u.berries_fed }},{% endif %}{% endfor %}],
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgb(54, 162, 235)",
           pointBackgroundColor: "rgb(54, 162, 235)",
@@ -346,7 +346,7 @@ $(document).ready(function(){
         datasets: [{
           lineTension: 0,
           label: "Hours Defended",
-          data: [{% for u in updates %}{{ u.hours_defended }},{% endfor %}],
+          data: [{% for u in updates %}{% if u.hours_defended %}{{ u.hours_defended }},{% endif %}{% endfor %}],
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgb(54, 162, 235)",
           pointBackgroundColor: "rgb(54, 162, 235)",
@@ -377,7 +377,7 @@ $(document).ready(function(){
         datasets: [{
           lineTension: 0,
           label: "Eggs Hatched",
-          data: [{% for u in updates %}{{ u.eggs_hatched }},{% endfor %}],
+          data: [{% for u in updates %}{% if u.eggs_hatched %}{{ u.eggs_hatched }},{% endif %}{% endfor %}],
           backgroundColor: "rgba(54, 162, 235, 0.2)",
           borderColor: "rgb(54, 162, 235)",
           pointBackgroundColor: "rgb(54, 162, 235)",
