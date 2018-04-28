@@ -67,10 +67,14 @@ class StatsView(TemplateView):
             total = m + v + i
             if total == 0 or m == 0 or v == 0 or i == 0:
                 return []
+            m = m / mystic['players']
+            v = v / valor['players']
+            i = i / instinct['players']
+            total = m + v + i
             charts[datum] = {
-                'mystic': int(m / mystic['players']),
-                'valor': int(v / valor['players']),
-                'instinct': int(i / instinct['players']),
+                'mystic': int(m),
+                'valor': int(v),
+                'instinct': int(i),
                 'mystic_pct': m / total * 100,
                 'valor_pct': v / total * 100,
                 'instinct_pct': i / total * 100,
