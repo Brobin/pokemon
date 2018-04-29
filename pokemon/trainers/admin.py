@@ -70,6 +70,6 @@ class TrainerAdmin(admin.ModelAdmin):
     list_display = ['username', 'xp', 'pokemon_caught', 'updated_at']
     list_display_link = ['username']
     list_filter = ['updated_at']
-    search_fields = ['username']
+    search_fields = ['username', 'user__username']
     ordering = ['-updated_at']
     inlines = [PokemonInline, TrainerBadgeInline, TrainerUpdateInline]
