@@ -1,16 +1,28 @@
 {% extends "admin/base.html" %}
 
-{% block extrastyle %}
 {% load compress i18n staticfiles %}
-{% compress css %}
-<link rel="stylesheet" type="text/x-scss" href="{% static 'css/admin.scss' %}" />
-{% endcompress %}
-{% endblock %}
 
 {% block title %}
 Lincoln Pokemon Admin
 {% endblock %}
 
+{% block extrastyle %}
+<style>
+  #header {
+    height: 40px;
+    background: #fff;
+    border-bottom: 1px solid #eee;
+    color: #004060;
+  }
+  #branding h1, #branding h1 a:link, #branding h1 a:visited, #header {
+    color: #fff;
+  }
+  #header a:link, #header a:visited {
+    color: #004060;
+  }
+</style>
+{% endblock %}
+
 {% block branding %}
-<h1 id="site-name"><img src="{% static 'img/logo.png' %}"/></h1>
+<h1 id="site-name"><img src="{% static 'img/logo.png' %}" height="40px"/></h1>
 {% endblock %}
