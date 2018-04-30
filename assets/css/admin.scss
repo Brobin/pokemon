@@ -1,79 +1,65 @@
-$link: #9C0000;
-$link_hover: darken($link, 10%);
+// Import our variables
+@import 'variables';
 
- #header {
+// Import bootstrap, our variables will be used
+@import '../bower_components/bootstrap-sass/assets/stylesheets/bootstrap/_variables';
+
+#header {
+  height: 40px;
   background: #fff;
-  color: #444;
-  border-bottom: 1px solid #E5E5E5;
-  a:link, a:visited {
-    color: $link;
-  }
-  a:hover {
-    color: $link_hover;
-  }
-  #branding {
-    h1 {
-      font-size: 15px;
-      color: #aaa;
-      img {
-        height: 30px;
-      }
-      .tagline {
-        margin-left: 10px;
-        padding-left: 10px;
-        border-left: 1px solid #aaa;
-      }
-    }
-  }
+  border-bottom: 1px solid #eee;
+  color: $link-color;
 }
-
-div.breadcrumbs {
-  background: #fff;
-  border-bottom: 1px solid #E5E5E5;
-  color: lighten($link, 40%);
-  a:link, a:visited {
-    color: $link;
-  }
-  a:hover {
-    color: $link_hover;
-  }
+#site-name > img {
+  height: 40px;
 }
-
-.hijack-button {
-  padding: 5px;
-  border-radius: 2px;
-  background-color: #ddd;
-  &:hover {
-    background-color: #eee;
-  }
+#branding h1, #branding h1 a:link, #branding h1 a:visited, #header {
+  color: #fff;
 }
-
-a:link, a:visited {
-  color: $link;
-  text-decoration: none;
+#header a:link, #header a:visited {
+  color: $link-color;
 }
-
-#user-tools a:hover {
-  border-bottom-color: $link_hover;
-  color: $link_hover;
+#user-tools a {
+  border-bottom: 1px solid $link-color;
+}
+#user-tools a:focus, #user-tools a:hover {
+  color: #19536f;
 }
 
 .module h2, .module caption, .inline-group h2 {
-  background: #ddd;
+  background: $brand-primary;
+  color: #fff;
+}
+h1 {
+  margin: 0 0 20px;
+  font-weight: 300;
+  font-size: 20px;
+  color: $link-color;
+}
+a:link, a:visited {
+  color: $link-color;
+  text-decoration: none;
+}
+a:hover {
+  color: #333;
 }
 
-.module:not(.filtered) {
-  background-color: #f8f8f8;
+.button, input[type=submit], input[type=button], .submit-row input, a.button {
+  background: #7fddd5;
+}
+div.breadcrumbs, .button:active, input[type=submit]:active, input[type=button]:active, .button:focus, input[type=submit]:focus, input[type=button]:focus, .button:hover, input[type=submit]:hover, input[type=button]:hover, input[type=submit].default, .submit-row input.default, .selector-chosen h2, .object-tools a:hover {
+  background: $brand-primary;
+}
+.button.default:active, input[type=submit].default:active, .button.default:focus, input[type=submit].default:focus, .button.default:hover, input[type=submit].default:hover {
+  background: #009689;
+}
+.object-tools a:hover {
+  background: #777;
 }
 
-a.section:link, a.section:visited {
-  color: rgb(61, 63, 65);
-}
-
-#changelist-filter li.selected a {
-  color: $link !important;
-}
-
-#changelist-filter a:focus, #changelist-filter a:hover, #changelist-filter li.selected a:focus, #changelist-filter li.selected a:hover {
-    color: $link_hover !important;
+#site-name {
+  .tagline {
+    color: $text-color;
+    margin-left: 10px;
+  }
 }
