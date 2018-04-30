@@ -88,7 +88,7 @@ class TrainerEdit(LoginMixin, UpdateView):
     template_name = 'trainers/edit.html'
 
     def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             return redirect('/auth/facebook/login/?next=' + request.path)
         obj = self.get_object()
         if obj.user != self.request.user:
@@ -182,7 +182,7 @@ class TrainerList(LoginMixin, ListView):
         return [ordering, '-xp']
 
     def dispatch(self, request, *args, **kwargs):
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             if hasattr(self.request.user, 'trainer'):
                 return super().dispatch(request, *args, **kwargs)
             return redirect('trainer-create')
