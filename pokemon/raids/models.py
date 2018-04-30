@@ -47,8 +47,8 @@ class Raid(models.Model):
 
 
 class RaidRecord(models.Model):
-    raid = models.ForeignKey(Raid, related_name='records')
-    trainer = models.ForeignKey(Trainer, related_name='raid_records')
+    raid = models.ForeignKey(Raid, related_name='records', on_delete=models.CASCADE)
+    trainer = models.ForeignKey(Trainer, related_name='raid_records', on_delete=models.CASCADE)
 
     time_remaining = models.IntegerField()
     lineup_screenshot = models.ImageField(upload_to='raids', blank=True, null=True)

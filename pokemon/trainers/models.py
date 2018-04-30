@@ -34,7 +34,7 @@ class Badge(models.Model):
 
 
 class TrainerUpdate(models.Model):
-    trainer = models.ForeignKey('Trainer', related_name='updates')
+    trainer = models.ForeignKey('Trainer', related_name='updates', on_delete=models.CASCADE)
     created_at = models.DateTimeField()
     xp = models.BigIntegerField()
     pokemon_caught = models.IntegerField()
@@ -48,7 +48,7 @@ class TrainerUpdate(models.Model):
 
 
 class Trainer(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='trainer')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='trainer', on_delete=models.CASCADE)
     username = models.CharField('Trainer Name', max_length=64, unique=True)
     team = models.IntegerField(choices=TEAMS)
 
@@ -157,8 +157,8 @@ class Trainer(models.Model):
 
 class TrainerBadge(models.Model):
     created_at = models.DateTimeField(editable=True)
-    trainer = models.ForeignKey(Trainer, related_name='trainer_badges')
-    badge = models.ForeignKey(Badge, related_name='trainer_badges')
+    trainer = models.ForeignKey(Trainer, related_name='trainer_badges', on_delete=models.CASCADE)
+    badge = models.ForeignKey(Badge, related_name='trainer_badges', on_delete=models.CASCADE)
 
     class Meta:
         verbose_name = 'Badge'
@@ -167,8 +167,8 @@ class TrainerBadge(models.Model):
 
 class BadgeApplication(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    trainer = models.ForeignKey(Trainer, related_name='badge_applications')
-    badge = models.ForeignKey(Badge, related_name='badge_applications')
+    trainer = models.ForeignKey(Trainer, related_name='badge_applications', on_delete=models.CASCADE)
+    badge = models.ForeignKey(Badge, related_name='badge_applications', on_delete=models.CASCADE)
     screenshot = models.ImageField(upload_to='badge_applications')
     screenshot2 = models.ImageField(upload_to='badge_applications', blank=True, null=True)
     note = models.TextField(blank=True, null=True)
@@ -189,7 +189,7 @@ class BadgeApplication(models.Model):
 
 
 class FavoritePokemon(models.Model):
-    trainer = models.ForeignKey(Trainer, related_name='favorite_pokemon')
+    trainer = models.ForeignKey(Trainer, related_name='favorite_pokemon', on_delete=models.CASCADE)
 
     number = models.IntegerField(choices=POKEMON_CHOICES)
     cp = models.IntegerField()
