@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.db.models import Count
 from django.shortcuts import redirect
 
 from django.views.generic.edit import CreateView
@@ -36,5 +37,5 @@ class RaidList(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        context['raids'] = Raid.objects.order_by('-tier', 'pokemon')
+        context['raids'] = Raid.objects.annotate(cnt=Count('records')).order_by('-tier', 'pokemon')
         return context

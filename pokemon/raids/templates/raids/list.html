@@ -11,28 +11,67 @@
 
 <hr/>
 
-<div class="well">
-  <table class="table table-striped">
-    <thead>
-      <th>Boss</th>
-      <th class="hidden-xs">Tier</th>
-      <th>Leader</th>
-      <th>Time Remaining</th>
-      <th class="hidden-xs">Date</th>
-    </thead>
-    <tbody>
-      {% for raid in raids %}
-      <tr>
-        <td><a href="{{ raid.url }}"><img src="{{ raid.image }}" height="45" style="margin-top:-10px;margin-bottom:-5px;"/> {{ raid }}</a></td>
-        <td class="hidden-xs">{% for x in raid.tier|times %}<img src="{% static 'img/raid_boss.png' %}"/>{% endfor %}</td>
-        {% with raid.leader as leader %}
-        <td>{% if leader %}<img src="{% static leader.trainer.team_image %}" height="20"/> {{ leader.trainer.username }}{% else %}???{% endif %}</td>
-        <td>{% if leader %}{{ leader.time_remaining }} seconds{% else %}???{% endif %}</td>
-        <td class="hidden-xs">{% if leader %}{{ leader.date }}{% else %}???{% endif %}</td>
-        {% endwith %}
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<ul class="nav nav-tabs" data-tabs="tabs">
+  <li class="nav-item active">
+    <a class="nav-link active" data-toggle="tab" href="#records">Solo Records</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" href="#incomplete">Imcomplete Raids</a>
+  </li>
+</ul>
+<div class="well tab-content">
+  <div class="tab-pane fade active in" id="records">
+    <table class="table table-striped">
+      <thead>
+        <th>Boss</th>
+        <th class="hidden-xs">Tier</th>
+        <th>Leader</th>
+        <th>Time Remaining</th>
+        <th class="hidden-xs">Date</th>
+      </thead>
+      <tbody>
+        {% for raid in raids %}
+        {% if raid.cnt > 0 %}
+        <tr>
+          <td><a href="{{ raid.url }}"><img src="{{ raid.image }}" height="45" style="margin-top:-10px;margin-bottom:-5px;"/> {{ raid }}</a></td>
+          <td class="hidden-xs">{% for x in raid.tier|times %}<img src="{% static 'img/raid_boss.png' %}"/>{% endfor %}</td>
+          {% with raid.leader as leader %}
+          <td>{% if leader %}<img src="{% static leader.trainer.team_image %}" height="20"/> {{ leader.trainer.username }}{% else %}???{% endif %}</td>
+          <td>{% if leader %}{{ leader.time_remaining }} seconds{% else %}???{% endif %}</td>
+          <td class="hidden-xs">{% if leader %}{{ leader.date }}{% else %}???{% endif %}</td>
+          {% endwith %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane fade" id="incomplete">
+    <p>These Raids haven't been completed yet! Go out and test your skills</p>
+    <table class="table table-striped">
+      <thead>
+        <th>Boss</th>
+        <th class="hidden-xs">Tier</th>
+        <th>Leader</th>
+        <th>Time Remaining</th>
+        <th class="hidden-xs">Date</th>
+      </thead>
+      <tbody>
+        {% for raid in raids %}
+        {% if raid.cnt == 0 %}
+        <tr>
+          <td><a href="{{ raid.url }}"><img src="{{ raid.image }}" height="45" style="margin-top:-10px;margin-bottom:-5px;"/> {{ raid }}</a></td>
+          <td class="hidden-xs">{% for x in raid.tier|times %}<img src="{% static 'img/raid_boss.png' %}"/>{% endfor %}</td>
+          {% with raid.leader as leader %}
+          <td>{% if leader %}<img src="{% static leader.trainer.team_image %}" height="20"/> {{ leader.trainer.username }}{% else %}???{% endif %}</td>
+          <td>{% if leader %}{{ leader.time_remaining }} seconds{% else %}???{% endif %}</td>
+          <td class="hidden-xs">{% if leader %}{{ leader.date }}{% else %}???{% endif %}</td>
+          {% endwith %}
+        </tr>
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
 </div>
 {% endblock %}
