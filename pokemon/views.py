@@ -29,6 +29,7 @@ class StatsView(TemplateView):
             sum_eggs_hatched=Sum('eggs_hatched'),
             avg_eggs_hatched=Avg('eggs_hatched'),
         )
+        context['globes'] = context['stats']['sum_kilometers_walked'] / 40075
         context['xp_leaders'] = Trainer.objects.order_by('-xp')[:5]
         context['pokedex_leaders'] = Trainer.objects.order_by('-pokedex_number', '-xp')[:5]
         context['catch_leaders'] = Trainer.objects.order_by('-pokemon_caught', '-xp')[:5]
