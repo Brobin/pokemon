@@ -19,7 +19,7 @@ function Pokemon(name, charge1, charge2) {
     self.images = function(types){
         var result = '';
         ko.utils.arrayForEach(types, function(type){
-            result = result + '<img src="/static/img/types/'+type+'.png" style="max-width:40px;max-height:50px;padding-right:10px;"/>'
+            result = result + '<div class="type-icon"><img src="/static/img/types/'+type+'.png"/></div>'
         });
         return result;
     }
