@@ -55,6 +55,7 @@ INSTALLED_APPS = [
 
     'pokemon.faq',
     'pokemon.gyms',
+    'pokemon.pvp',
     'pokemon.raids',
     'pokemon.trainers',
     'pokemon.utils',

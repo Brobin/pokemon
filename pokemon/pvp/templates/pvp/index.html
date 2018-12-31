@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% load staticfiles humanize pokemon %}
+
+{% block title %}Lincoln Pokemon Stats{% endblock %}
+
+{% block content %}
+<h1>Pokemon GO PvP</h1>
+
+<table class="table table-striped">
+  <thead>
+    <th>Pokemon</th>
+    <th>C1 Type</th>
+    <th>C2 Type</th>
+    <th>C1 SE</th>
+    <th>C2 SE</th>
+    <th>Vulnerable To</th>
+  </thead>
+  <tbody data-bind="foreach: pokemon">
+    <tr>
+      <td>
+        <select data-bind="options: mons, value: name" class="form-control"></select>
+      </td>
+      <td>
+        <select data-bind="options: types, value: charge1" class="form-control"></select>
+      </td>
+      <td>
+        <select data-bind="options: types, value: charge2" class="form-control"></select>
+      </td>
+      <td data-bind="html: charge1Effective"></td>
+      <td data-bind="html: charge2Effective"></td>
+      <td data-bind="html: vulnerable"></td>
+    </tr>
+  </tbody>
+</table>
+
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js" integrity="sha256-owX7sroiO/O1a7h3a4X29A1g3QgqdNvijRQ7V5TH45M=" crossorigin="anonymous"></script>
+<script src="{% static 'js/reference.js' %}"></script>
+<script src="{% static 'js/pvp.js' %}"></script>
+<script>
+  var model = new PvPViewModel();
+  ko.applyBindings(model);
+  for(var i=0; i < 6; i++) {
+    var mon = model.mons()[i];
+    model.pokemon.push(new Pokemon(mon, pokemon[mon][0], pokemon[mon][1]));
+  }
+</script>
+{% endblock %}
