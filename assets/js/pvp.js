@@ -13,8 +13,13 @@ function Pokemon(name, charge1, charge2) {
     self.charge1 = ko.observable(charge1);
     self.charge2 = ko.observable(charge2);
 
-    self.mons = ko.observableArray(Object.keys(pokemon));
-    self.types = ko.observableArray(Object.keys(type_map));
+    var mons = Object.keys(pokemon);
+    var types = Object.keys(type_map);
+    mons.sort()
+    types.sort()
+
+    self.mons = ko.observableArray(mons);
+    self.types = ko.observableArray(types);
 
     self.images = function(types){
         var result = '';
@@ -31,15 +36,35 @@ function Pokemon(name, charge1, charge2) {
                 effective.push(key)
             }
         });
-        return self.images(effective);
+        return effective;
     }
 
-    self.charge1Effective = ko.computed(function(){
-        return self.effective(self.charge1());
+    self.chargeEffective = function(){
+        var c1 = self.effective(self.charge1());
+        var c2 = self.effective(self.charge2());
+        ko.utils.arrayForEach(c2, function(c){
+            if(c1.indexOf(c) == -1) {
+                c1.push(c);
+            }
+        });
+        return c1;
+    }
+
+    self.chargeEffectiveImages = ko.computed(function(){
+        return self.images(self.chargeEffective());
     });
 
-    self.charge2Effective = ko.computed(function(){
-        return self.effective(self.charge2());
+    self.resists = ko.computed(function(){
+        var effective = [];
+        var type1 = pokemon[self.name()][0];
+        var type2 = pokemon[self.name()][1];
+        ko.utils.arrayForEach(Object.keys(type_map), function(type){
+            var effectiveness = type_map[type][type1] * type_map[type][type2];
+            if (effectiveness < 1) {
+                effective.push(type);
+            }
+        });
+        return self.images(effective);
     });
 
     self.vulnerable = ko.computed(function(){

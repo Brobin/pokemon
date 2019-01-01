@@ -2,39 +2,49 @@
 
 {% load staticfiles humanize pokemon %}
 
-{% block title %}Lincoln Pokemon Stats{% endblock %}
+{% block title %}PvP Team Analysis{% endblock %}
 
 {% block content %}
-<h1>Pokemon GO PvP</h1>
+<h1>PvP Team Analysis</h1>
 
-<table class="table table-striped">
-  <thead>
-    <th>Pokemon/C1/C2</th>
-    <th>C1 SE</th>
-    <th>C2 SE</th>
-    <th>Vulnerable To</th>
-  </thead>
-  <tbody data-bind="foreach: pokemon">
-    <tr>
-      <td>
-        <div class="row">
-          <div class="col-sm-12">
-            <select data-bind="options: mons, value: name" class="form-control"></select>
-          </div>
-          <div class="col-sm-6">
-            <select data-bind="options: types, value: charge1" class="form-control"></select>
-          </div>
-          <div class="col-sm-6">
-            <select data-bind="options: types, value: charge2" class="form-control"></select>
-          </div>
+<p>Choose your 3 pokemon and the types of their charge moves, and this tool will show you what types to use them against, and what types you shouldn't use them against.</p>
+
+<hr/>
+
+<div class="row" data-bind="foreach: pokemon">
+  <div class="col-md-4 col-sm-6">
+    <div class="well">
+      <label>Pokemon</label>
+      <select data-bind="options: mons, optionsText: function(item){return item.charAt(0).toUpperCase() + item.substr(1).toLowerCase();}, value: name" class="form-control"></select>
+      <br/>
+      <div class="row">
+        <div class="col-sm-6">
+          <label>Charge Move 1 Type</label>
+          <select data-bind="options: types, optionsText: function(item){if (item == ''){return '---';} else { return item.charAt(0).toUpperCase() + item.substr(1).toLowerCase();}}, value: charge1" class="form-control"></select>
         </div>
-      </td>
-      <td data-bind="html: charge1Effective"></td>
-      <td data-bind="html: charge2Effective"></td>
-      <td data-bind="html: vulnerable"></td>
-    </tr>
-  </tbody>
-</table>
+        <div class="col-sm-6">
+          <label>Charge Move 2 Type</label>
+          <select data-bind="options: types, optionsText: function(item){if (item==''){return '---';} else { return item.charAt(0).toUpperCase() + item.substr(1).toLowerCase();}}, value: charge2" class="form-control"></select>
+        </div>
+      </div>
+      <hr/>
+      <p><strong>Super Effective Against</strong></p>
+      <p data-bind="html: chargeEffectiveImages"></p>
+      <hr/>
+      <div class="resists">
+        <p><strong>Resists</Strong></p>
+        <p data-bind="html: resists"></p>
+      </div>
+      <hr/>
+      <div class="vulnerable">
+        <p><strong>Vulnerable To</Strong></p>
+        <p data-bind="html: vulnerable"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr/>
 
 {% endblock %}
 
@@ -45,8 +55,8 @@
 <script>
   var model = new PvPViewModel();
   ko.applyBindings(model);
-  for(var i=0; i < 6; i++) {
-    var mon = model.mons()[i];
+  for(var i=0; i < 3; i++) {
+    var mon = model.mons()[i*3+2];
     model.pokemon.push(new Pokemon(mon, pokemon[mon][0], pokemon[mon][1]));
   }
 </script>
