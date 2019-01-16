@@ -1,10 +1,12 @@
 from django.conf.urls import url
 
 from .views import (
-    PvPView
+    PvPStatView,
+    PvPTeamView
 )
 
 
 urlpatterns = [
-    url(r'^$', PvPView.as_view(), name='pvp'),
+    url(r'^team/$', PvPTeamView.as_view(), name='pvp-team'),
+    url(r'^$', PvPStatView.as_view(), name='pvp-stat'),
 ]
