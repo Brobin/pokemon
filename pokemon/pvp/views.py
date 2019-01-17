@@ -1,4 +1,5 @@
 from django.core.cache import cache
+from django.contrib import messages
 from django.shortcuts import render
 
 from django.views.generic import TemplateView
@@ -27,6 +28,11 @@ class PvPStatView(TemplateView):
         context['def_iv'] = int(self.request.GET.get('def_iv', 15))
         context['hp_iv'] = int(self.request.GET.get('hp_iv', 15))
         context['ivs'] = range(0, 16)
+
+        if pokemon not in context['choices']:
+            pokemon = 'Skarmory'
+            context['pokemon'] = pokemon
+            messages.error(self.request, 'Please pick a valid pokemon')
 
         key = pokemon + str(max_cp)
         combos = cache.get(key)
