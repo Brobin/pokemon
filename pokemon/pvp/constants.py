@@ -613,6 +613,8 @@ BASE_STATS = [
     {'hp':237,'attack':238,'defense':238,'name':'Arceus Rock','number':493},
     {'hp':237,'attack':238,'defense':238,'name':'Arceus Steel','number':493},
     {'hp':237,'attack':238,'defense':238,'name':'Arceus Water','number':493},
+    {'hp':130,'attack':118,'defense':99,'name':'Meltan','number':808},
+    {'hp':264,'attack':226,'defense':190,'name':'Melmetal','number':809},
 ]
 
 
