@@ -2,10 +2,10 @@
 
 {% load staticfiles humanize pokemon %}
 
-{% block title %}PvP Team Analysis{% endblock %}
+{% block title %}PvP IV Spread Analysis{% endblock %}
 
 {% block content %}
-<h1>PvP Stat Analysis</h1>
+<h1>PvP IV Spread Analysis</h1>
 
 <p>Choose a pokemon from the list to see the top 50 ideal IV spreads for the chosen league</p>
 
@@ -14,11 +14,12 @@
   <div class="row">
     <div class="col-md-4 col-sm-6">
       <label>Pokemon</label>
-      <select name="pokemon" class="form-control">
+      <input class="form-control" type="text" list="pokemon" name="pokemon" value="{{ pokemon }}"/>
+      <datalist id="pokemon">
         {% for choice in choices %}
-        <option value="{{ choice }}" {% if choice == pokemon %}selected{% endif %}>{{ choice }}</option>
+        <option>{{ choice }}</option>
         {% endfor %}
-      </select>
+      </datalist>
     </div>
     <div class="col-md-4 col-sm-6">
       <label>League</label>
