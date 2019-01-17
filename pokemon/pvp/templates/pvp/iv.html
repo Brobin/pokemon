@@ -10,16 +10,51 @@
 <p>Choose a pokemon from the list to see the top 50 ideal IV spreads for the chosen league</p>
 
 <form method="get">
-  <select name="pokemon" class="form-control" style="max-width:400px;display: inline;margin-right: 10px;">
-    {% for choice in choices %}
-    <option value="{{ choice }}" {% if choice == pokemon %}selected{% endif %}>{{ choice }}</option>
-    {% endfor %}
-  </select>
-  <select name="max_cp" class="form-control" style="max-width: 200px;display: inline;margin-right: 10px;">
-    <option value="1500" {% if max_cp == 1500 %}selected{% endif %}>Great League</option>
-    <option value="2500" {% if max_cp == 2500 %}selected{% endif %}>Ultra League</option>
-  </select>
-  <input type="submit" value="View Stats" class="btn btn-primary"/>
+
+  <div class="row">
+    <div class="col-md-8 col-sm-6">
+      <label>Pokemon</label>
+      <select name="pokemon" class="form-control">
+        {% for choice in choices %}
+        <option value="{{ choice }}" {% if choice == pokemon %}selected{% endif %}>{{ choice }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-4 col-sm-6">
+      <label>League</label>
+      <select name="max_cp" class="form-control">
+        <option value="1500" {% if max_cp == 1500 %}selected{% endif %}>Great League</option>
+        <option value="2500" {% if max_cp == 2500 %}selected{% endif %}>Ultra League</option>
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <label>Attack IV</label>
+      <select name="att_iv" class="form-control">
+      {% for x in ivs %}
+        <option value="{{ x }}" {% if x == att_iv %}selected{% endif %}>{{ x }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <label>Defense IV</label>
+      <select name="def_iv" class="form-control">
+      {% for x in ivs %}
+        <option value="{{ x }}" {% if x == def_iv %}selected{% endif %}>{{ x }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <label>HP IV</label>
+      <select name="hp_iv" class="form-control">
+      {% for x in ivs %}
+        <option value="{{ x }}" {% if x == hp_iv %}selected{% endif %}>{{ x }}</option>
+      {% endfor %}
+      </select>
+    </div>
+    <div class="col-md-2 col-sm-3 col-xs-6">
+      <input type="submit" value="View Stats" class="btn btn-primary" style="margin-top:24px;"/>
+    </div>
+  </div>
 </form>
 <hr/>
 
@@ -37,6 +72,11 @@
       </tr>
     </thead>
     <tbody>
+      <tr class="table-highlight">
+        {% for stat in my_combo %}
+        <td>{{ stat }}</td>
+        {% endfor %}
+      </tr>
       {% for c in combos %}
       <tr>
         {% for stat in c %}

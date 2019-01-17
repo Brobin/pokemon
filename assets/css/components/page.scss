@@ -24,3 +24,12 @@ html, body {
 input[type="number"], input[type="text"], select {
   min-width: 100px;
 }
+
+label {
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
+.table-highlight {
+  background-color: #eee;
+}

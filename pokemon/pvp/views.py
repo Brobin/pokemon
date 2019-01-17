@@ -7,6 +7,9 @@ from math import floor
 from .constants import CPM, BASE_STATS
 
 
+POKEMON = {p['name']: p for p in BASE_STATS}
+
+
 class PvPStatView(TemplateView):
     template_name = 'pvp/iv.html'
 
@@ -14,15 +17,32 @@ class PvPStatView(TemplateView):
         context = super().get_context_data(*args, **kwargs)
         pokemon = self.request.GET.get('pokemon', 'Skarmory')
         max_cp = int(self.request.GET.get('max_cp', 1500))
+
+        context['choices'] = [p['name'] for p in BASE_STATS]
+        context['choices'].sort()
         context['pokemon'] = pokemon
         context['max_cp'] = max_cp
+        context['att_iv'] = int(self.request.GET.get('att_iv', 0))
+        context['def_iv'] = int(self.request.GET.get('def_iv', 15))
+        context['hp_iv'] = int(self.request.GET.get('hp_iv', 15))
+        context['ivs'] = range(0, 16)
+
         combos = list(self.get_combos(pokemon, max_cp))
         context['combos'] = combos
-        context['choices'] = [p['name'] for p in BASE_STATS]
+
+        context['my_combo'] = self.get_my_combo(
+            pokemon, context['att_iv'], context['def_iv'],
+            context['hp_iv'], max_cp, combos[0][-2])
         return context
 
+    def get_my_combo(self, name, at, de, hp, max_cp, max_product):
+        base = POKEMON[name]
+        for level in reversed(range(20, 81)):
+            cp, product = self.calc_cp_and_product(base, level / 2.0, at, de, hp)
+            if cp <= max_cp:
+                return (level/2.0, at, de, hp, cp, product, floor(product/max_product*10000)/100)
+
     def get_combos(self, name, max_cp):
-        POKEMON = {p['name']: p for p in BASE_STATS}
         base = POKEMON[name]
         combo = (base, 40, 15, 15, 15)
         cp, product = self.calc_cp_and_product(*combo)
