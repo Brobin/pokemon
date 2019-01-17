@@ -1,3 +1,4 @@
+from django.core.cache import cache
 from django.shortcuts import render
 
 from django.views.generic import TemplateView
@@ -27,7 +28,12 @@ class PvPStatView(TemplateView):
         context['hp_iv'] = int(self.request.GET.get('hp_iv', 15))
         context['ivs'] = range(0, 16)
 
-        combos = list(self.get_combos(pokemon, max_cp))
+        key = pokemon + str(max_cp)
+        combos = cache.get(key)
+        if not combos:
+            combos = list(self.get_combos(pokemon, max_cp))
+            cache.set(key, combos, 60*60*24*7)
+
         context['combos'] = combos
 
         context['my_combo'] = self.get_my_combo(

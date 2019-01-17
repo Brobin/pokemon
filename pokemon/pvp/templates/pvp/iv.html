@@ -12,7 +12,7 @@
 <form method="get">
 
   <div class="row">
-    <div class="col-md-8 col-sm-6">
+    <div class="col-md-4 col-sm-6">
       <label>Pokemon</label>
       <select name="pokemon" class="form-control">
         {% for choice in choices %}
@@ -27,6 +27,8 @@
         <option value="2500" {% if max_cp == 2500 %}selected{% endif %}>Ultra League</option>
       </select>
     </div>
+  </div>
+  <div class="row">
     <div class="col-md-2 col-sm-3 col-xs-6">
       <label>Attack IV</label>
       <select name="att_iv" class="form-control">
